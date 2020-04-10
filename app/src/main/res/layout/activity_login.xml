@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".activity.LoginActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_210sdp"
+        android:background="@color/colorBlue"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/shape_white_8dp"
+            android:elevation="4dp">
+
+            <ImageView
+                android:layout_width="@dimen/_112sdp"
+                android:layout_height="@dimen/_98sdp"
+                android:contentDescription="@string/istiqomah_store"
+                android:src="@drawable/logo" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui_bold"
+                android:text="@string/istiqomah_store"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_20ssp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="16dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui"
+                android:text="@string/istiqomah_tagline"
+                android:textAlignment="center"
+                android:textColor="@color/colorWhite"
+                android:textSize="@dimen/_13ssp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rlLogin"
+        android:layout_width="@dimen/_270sdp"
+        android:layout_height="@dimen/_275sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_170sdp"
+        android:background="@drawable/shape_white_13dp"
+        android:elevation="2dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:layout_marginTop="10dp"
+            android:text="@string/login_caps"
+            android:textAlignment="center"
+            android:layout_centerHorizontal="true"
+            android:textSize="@dimen/_23ssp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="55dp"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:text="@string/username"
+            android:textAlignment="center"
+            android:textSize="@dimen/_13ssp" />
+
+        <EditText
+            android:id="@+id/etUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:padding="10dp"
+            android:fontFamily="@font/segoe_ui"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/username"
+            android:inputType="textPersonName"
+            android:textSize="@dimen/_15ssp"
+            android:background="@drawable/shape_white_10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="135dp"
+            android:layout_marginStart="15dp"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:text="@string/password"
+            android:textAlignment="center"
+            android:textSize="@dimen/_13ssp" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="160dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:padding="10dp"
+            android:fontFamily="@font/segoe_ui"
+            android:autofillHints=""
+            android:ems="10"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textSize="@dimen/_15ssp"
+            android:background="@drawable/shape_white_10dp"/>
+
+        <TextView
+            android:id="@+id/tvForgotPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/etPassword"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="115dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:text="@string/forgot_your_password"
+            android:textAlignment="center"
+            android:textColor="@color/colorBlue"
+            android:textSize="@dimen/_13ssp" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="@dimen/_170sdp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvForgotPassword"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@drawable/custom_button_1"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:text="@string/login_caps"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_18ssp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rlLogin"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/segoe_ui"
+            android:text="@string/information_register"
+            android:textAlignment="center"
+            android:textSize="@dimen/_14ssp" />
+
+        <TextView
+            android:id="@+id/tvRegister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:textColor="@color/colorBlue"
+            android:text="@string/register"
+            android:textAlignment="center"
+            android:textSize="@dimen/_14ssp" />
+    </LinearLayout>
+
+</RelativeLayout>

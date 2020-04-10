@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Istiqomah Store</string>
+    <string name="istiqomah_store">ISTIQOMAH STORE</string>
+    <string name="istiqomah_tagline">Belanja mudah, murah, berkah</string>
+    <string name="login_caps">LOGIN</string>
+    <string name="register_caps">REGISTER</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="information_register">Don\'t have an Account?</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="forgot_your_password">Forgot your Password?</string>
+    <string name="information_already_register">Already have an Account?</string>
+    <string name="name">Name</string>
+    <string name="your_name">Your name</string>
+    <string name="your_email">Your email</string>
+    <string name="email">Email</string>
+    <string name="address">Address</string>
+    <string name="home_address">Home Address</string>
+    <string name="phone_number">Phone Number</string>
+</resources>
