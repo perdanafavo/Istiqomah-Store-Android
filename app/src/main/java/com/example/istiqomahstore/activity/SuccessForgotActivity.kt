@@ -4,10 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.istiqomahstore.R
 
-class SuccessRegisterActivity : AppCompatActivity() {
+class SuccessForgotActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_success_register)
+        setContentView(R.layout.activity_success_forgot)
     }
 }

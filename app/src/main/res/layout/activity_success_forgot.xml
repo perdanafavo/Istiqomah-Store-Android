@@ -5,10 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBlue"
-    tools:context=".activity.SuccessRegisterActivity">
+    tools:context=".activity.SuccessForgotActivity">
 
     <LinearLayout
-        android:id="@+id/llSuccessRegister1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
