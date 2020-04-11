@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="@dimen/_230sdp"
+    android:layout_height="@dimen/_245sdp"
+    android:layout_gravity="center"
+    android:padding="5dp"
+    android:elevation="3dp"
+    android:background="@drawable/shape_border">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/ivProduct"
+            android:contentDescription="@string/product_name"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_90sdp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/shape_border" />
+
+        <TextView
+            android:id="@+id/tvProductName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/segoe_ui"
+            android:textSize="@dimen/_14ssp"
+            android:textAlignment="center"
+            android:text="@string/product_name" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnMinus"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:textSize="@dimen/_14ssp"
+            android:background="@drawable/border_rectangle"
+            android:fontFamily="@font/segoe_ui"
+            android:gravity="center_horizontal"
+            android:text="@string/minus_symbol" />
+
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:hint="@string/hint_number"
+            android:textAlignment="center"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:background="@drawable/border_rectangle"/>
+
+        <Button
+            android:id="@+id/btnPlus"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:textSize="@dimen/_14ssp"
+            android:background="@drawable/border_rectangle"
+            android:fontFamily="@font/segoe_ui"
+            android:gravity="center_horizontal"
+            android:text="@string/plus_symbol" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/_13ssp"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:textAlignment="center"
+            android:text="@string/total_rp" />
+
+        <TextView
+            android:id="@+id/tvTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginStart="2dp"
+            android:textSize="@dimen/_13ssp"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:text="@string/hint_number"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:textSize="@dimen/_13ssp"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/custom_button_3"
+            android:text="@string/cancel"
+            tools:ignore="ButtonStyle" />
+
+        <Button
+            android:id="@+id/btnAddToCart"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginStart="10dp"
+            android:textSize="@dimen/_13ssp"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:text="@string/add_to_cart"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/custom_button_2"
+            tools:ignore="ButtonStyle" />
+
+    </LinearLayout>
+
+</LinearLayout>
