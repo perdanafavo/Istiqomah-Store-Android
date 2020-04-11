@@ -18,4 +18,14 @@
     <string name="address">Address</string>
     <string name="home_address">Home Address</string>
     <string name="phone_number">Phone Number</string>
+    <string name="forgot_password">FORGOT PASSWORD ?</string>
+    <string name="information_forgot">Enter your registered email address.\n We will sent recovery code to your email</string>
+    <string name="request_new_password">REQUEST NEW PASSWORD</string>
+    <string name="back">Back</string>
+    <string name="check_in_your_e_mail">Check in your E-Mail !</string>
+    <string name="information_check_email">We just emailed you a link for reset \n your password to:</string>
+    <string name="favophs_email">favophs@email.com</string>
+    <string name="information_check_email_2">Please check your inbox/spam folder \n email and click on the link to continue</string>
+    <string name="admin_email">admin@istiqomah.diraya.co.id</string>
+    <string name="information_check_email_3">For any questions or problems \n please email us at:</string>
 </resources>
