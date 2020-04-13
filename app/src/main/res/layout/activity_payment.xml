@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".activity.PaymentActivity">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_40sdp"
+        android:background="@color/colorBlue"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/ic_arrow_back_white_32dp"
+            android:contentDescription="@string/back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_20ssp"
+            android:layout_marginStart="10dp"
+            android:gravity="center_vertical"
+            android:text="@string/payments" />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="@dimen/_260sdp"
+        android:layout_height="@dimen/_305sdp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/colorWhite"
+        android:elevation="2dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/segoe_ui_bold"
+                android:textSize="@dimen/_16ssp"
+                android:padding="5dp"
+                android:text="@string/thank_you"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@drawable/border_dash_black"
+            android:layout_height="4dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            android:layout_margin="10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:fontFamily="@font/segoe_ui"
+                android:textSize="@dimen/_11ssp"
+                android:text="@string/information_payment_1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/segoe_ui_bold"
+                    android:textSize="@dimen/_12ssp"
+                    android:text="@string/total_rp"/>
+
+                <TextView
+                    android:id="@+id/tvTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/segoe_ui_bold"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="5dp"
+                    android:textSize="@dimen/_12ssp"
+                    android:text="@string/hint_number"/>
+
+            </LinearLayout>
+            
+            <TextView
+                android:id="@+id/tvInformationPayment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:gravity="center_horizontal"
+                android:fontFamily="@font/segoe_ui"
+                android:textSize="@dimen/_11ssp"
+                android:text="@string/information_payment_2"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:background="@drawable/border_dash_black"
+            android:layout_height="4dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvInformationConfirmation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorRed"
+                android:fontFamily="@font/segoe_ui"
+                android:textSize="@dimen/_9ssp"
+                android:text="@string/information_payment_3"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <Button
+            android:id="@+id/btnBackToStore"
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:fontFamily="@font/segoe_ui_bold"
+            android:text="@string/back_to_store"
+            android:background="@drawable/custom_button_1"
+            android:textColor="@color/colorWhite"
+            android:textSize="@dimen/_16ssp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

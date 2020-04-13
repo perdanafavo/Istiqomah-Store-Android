@@ -35,4 +35,13 @@
     <string name="cancel">Cancel</string>
     <string name="add_to_cart">Add to Cart</string>
     <string name="total_rp">Total: Rp</string>
+    <string name="edit_profile_caps">EDIT PROFILE</string>
+    <string name="new_password">New Password</string>
+    <string name="update">Update</string>
+    <string name="payments">Payments</string>
+    <string name="back_to_store">Back to Store</string>
+    <string name="thank_you">Thank you for your order !</string>
+    <string name="information_payment_1">Thank you for shopping at Istiqomah Store, we will prepare your needs soon. Please confirm when contacted by our admin in a few moments.</string>
+    <string name="information_payment_2">Please make a payment at the following account: \n \n BNI Syariah - 05577xxxxx a/n Istiqomah Store \n or \n BCA - 0687xxxxxx a/n Istiqomah Store</string>
+    <string name="information_payment_3">*Your payment period is until 11.59 p.m. If there is no payment confirmation, the order will be deleted by the system.</string>
 </resources>
