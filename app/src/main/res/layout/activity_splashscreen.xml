@@ -25,7 +25,7 @@
             android:layout_width="@dimen/_160sdp"
             android:layout_height="@dimen/_140sdp"
             android:src="@drawable/logo"
-            android:contentDescription="@string/istiqomah_store" />
+            android:contentDescription="@string/distributor_masjid" />
     </LinearLayout>
 
     <LinearLayout
@@ -44,9 +44,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/segoe_ui_bold"
-            android:text="@string/istiqomah_store"
+            android:text="@string/dimas"
             android:textAlignment="center"
-            android:textSize="@dimen/_25ssp"/>
+            android:textSize="@dimen/_35ssp"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -54,7 +55,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="16dp"
         android:gravity="center"
         android:orientation="vertical"
@@ -65,7 +66,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/istiqomah_tagline"
+            android:text="@string/distributor_masjid"
+            android:textAllCaps="true"
             android:textAlignment="center"
             android:fontFamily="@font/segoe_ui"
             android:textSize="@dimen/_16ssp" />

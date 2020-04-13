@@ -1,6 +1,5 @@
 <resources>
-    <string name="app_name">Istiqomah Store</string>
-    <string name="istiqomah_store">ISTIQOMAH STORE</string>
+    <string name="app_name">DIMAS</string>
     <string name="istiqomah_tagline">Belanja mudah, murah, berkah</string>
     <string name="login_caps">LOGIN</string>
     <string name="register_caps">REGISTER</string>
@@ -41,7 +40,9 @@
     <string name="payments">Payments</string>
     <string name="back_to_store">Back to Store</string>
     <string name="thank_you">Thank you for your order !</string>
-    <string name="information_payment_1">Thank you for shopping at Istiqomah Store, we will prepare your needs soon. Please confirm when contacted by our admin in a few moments.</string>
-    <string name="information_payment_2">Please make a payment at the following account: \n \n BNI Syariah - 05577xxxxx a/n Istiqomah Store \n or \n BCA - 0687xxxxxx a/n Istiqomah Store</string>
+    <string name="information_payment_1">Thank you for shopping at DIMAS, we will prepare your needs soon. Please confirm when contacted by our admin in a few moments.</string>
+    <string name="information_payment_2">Please make a payment at the following account: \n \n BNI Syariah - 05577xxxxx a/n DIMAS \n or \n BCA - 0687xxxxxx a/n DIMAS</string>
     <string name="information_payment_3">*Your payment period is until 11.59 p.m. If there is no payment confirmation, the order will be deleted by the system.</string>
+    <string name="dimas">DIMAS</string>
+    <string name="distributor_masjid">Distributor Masjid</string>
 </resources>

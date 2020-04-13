@@ -22,9 +22,9 @@
             android:elevation="4dp">
 
             <ImageView
-                android:layout_width="@dimen/_112sdp"
-                android:layout_height="@dimen/_98sdp"
-                android:contentDescription="@string/istiqomah_store"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_height="@dimen/_86sdp"
+                android:contentDescription="@string/distributor_masjid"
                 android:src="@drawable/logo" />
         </LinearLayout>
 
@@ -39,10 +39,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/segoe_ui_bold"
-                android:text="@string/istiqomah_store"
+                android:text="@string/dimas"
+                android:textAllCaps="true"
                 android:textAlignment="center"
                 android:textColor="@color/colorWhite"
-                android:textSize="@dimen/_20ssp" />
+                android:textSize="@dimen/_25ssp" />
         </LinearLayout>
 
         <LinearLayout
