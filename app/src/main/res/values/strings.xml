@@ -45,4 +45,8 @@
     <string name="information_payment_3">*Your payment period is until 11.59 p.m. If there is no payment confirmation, the order will be deleted by the system.</string>
     <string name="dimas">DIMAS</string>
     <string name="distributor_masjid">Distributor Masjid</string>
+    <string name="cart">Cart</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="logout">Logout</string>
+    <string name="notif_number">10</string>
 </resources>
