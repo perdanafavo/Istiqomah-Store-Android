@@ -14,26 +14,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.PaymentActivity">
+        <activity android:name=".activity.Activity.PaymentActivity">
 
         </activity>
-        <activity android:name=".activity.EditProfileActivity">
+        <activity android:name=".activity.Activity.EditProfileActivity">
 
         </activity>
-        <activity android:name=".activity.SuccessForgotActivity" />
-        <activity android:name=".activity.ForgotPasswordActivity" />
-        <activity android:name=".activity.RegisterActivity">
+        <activity android:name=".activity.Activity.SuccessForgotActivity" />
+        <activity android:name=".activity.Activity.ForgotPasswordActivity" />
+        <activity android:name=".activity.Activity.RegisterActivity">
+        </activity>
+        <activity android:name=".activity.Activity.LoginActivity">
+
+        </activity>
+        <activity android:name=".activity.Activity.SplashScreenActivity">
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".activity.LoginActivity">
-
-        </activity>
-        <activity android:name=".activity.SplashScreenActivity">
-
         </activity>
     </application>
 

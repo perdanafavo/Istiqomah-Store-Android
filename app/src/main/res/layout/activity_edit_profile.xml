@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
-    tools:context=".activity.EditProfileActivity">
+    tools:context=".activity.Activity.EditProfileActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -221,7 +221,7 @@
             android:textSize="@dimen/_13ssp" />
 
         <EditText
-            android:id="@+id/etPassword"
+            android:id="@+id/etPasswordL"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="385dp"
