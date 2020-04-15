@@ -9,6 +9,9 @@ import com.example.istiqomahstore.R;
 import com.example.istiqomahstore.helpers.CustomCompatActivity;
 
 public class SuccessForgotActivity extends CustomCompatActivity {
+
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

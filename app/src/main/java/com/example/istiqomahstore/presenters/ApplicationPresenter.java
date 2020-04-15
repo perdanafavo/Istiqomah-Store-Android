@@ -16,11 +16,14 @@ public class ApplicationPresenter {
     Context page;
     private ApplicationViews applicationViews;
     private ApplicationViews.LoginViews loginViews;
+    private ApplicationViews.TokenViews tokenViews;
 
     public ApplicationPresenter(Context context) {
         if (context instanceof ApplicationViews) applicationViews = (ApplicationViews) context;
         if (context instanceof ApplicationViews.LoginViews)
             loginViews = (ApplicationViews.LoginViews) context;
+        if (context instanceof ApplicationViews.TokenViews)
+            tokenViews = (ApplicationViews.TokenViews) context;
         page = context;
     }
 
@@ -44,7 +47,41 @@ public class ApplicationPresenter {
 
                     @Override
                     public void onError(ANError anError) {
-                        loginViews.failedLogin(ENVIRONMENT.FAIL_GET);
+                        if (anError.getErrorCode() != 0) {
+                            UsersModels er = anError.getErrorAsObject(UsersModels.class);
+                            loginViews.failedLogin(er.getMessage());
+                        } else {
+                            loginViews.failedLogin(ENVIRONMENT.FAIL_GET);
+                        }
+                    }
+                });
+    }
+
+    public void updateToken(){
+        AndroidNetworking.put("https://istiqomah.diraya.co.id/api/authentication")
+                .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
+                .addBodyParameter("id", Integer.toString(tokenViews.getId()))
+                .addBodyParameter("token", tokenViews.getToken())
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsObject(UsersModels.class, new ParsedRequestListener<UsersModels>() {
+                    @Override
+                    public void onResponse(UsersModels response) {
+                        if (response.getStatus()) {
+                            tokenViews.successToken(response.getData());
+                        } else {
+                            tokenViews.failedToken(response.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        if (anError.getErrorCode() != 0) {
+                            UsersModels er = anError.getErrorAsObject(UsersModels.class);
+                            loginViews.failedLogin(er.getMessage());
+                        } else {
+                            loginViews.failedLogin(ENVIRONMENT.FAIL_GET);
+                        }
                     }
                 });
     }

@@ -6,6 +6,7 @@ public class ENVIRONMENT {
 
     //ERROR MESSAGE
     public static final String FAIL_GET = "Terjadi kesalahan, Coba lagi nanti";
+    public static final String WRONG_USER = "Username atau Password salah";
 
     //INFO MESSAGE
     public static final String NO_WAITING_MESSAGE = "Mohon Tunggu";

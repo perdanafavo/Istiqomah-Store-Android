@@ -192,7 +192,7 @@
             android:textSize="@dimen/_13ssp" />
 
         <EditText
-            android:id="@+id/etUsernameL"
+            android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="320dp"
@@ -218,7 +218,7 @@
             android:textSize="@dimen/_13ssp" />
 
         <EditText
-            android:id="@+id/etPasswordL"
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="385dp"
@@ -238,7 +238,7 @@
             android:layout_width="@dimen/_170sdp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/etPassword"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="16dp"
             android:layout_centerHorizontal="true"
             android:background="@drawable/custom_button_1"
             android:fontFamily="@font/segoe_ui_bold"

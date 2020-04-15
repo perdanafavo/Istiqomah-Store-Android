@@ -98,7 +98,7 @@
             android:textSize="@dimen/_13ssp" />
 
         <EditText
-            android:id="@+id/etUsernameL"
+            android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
@@ -124,7 +124,7 @@
             android:textSize="@dimen/_13ssp" />
 
         <EditText
-            android:id="@+id/etPasswordL"
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="160dp"
@@ -143,7 +143,7 @@
             android:id="@+id/tvForgotPassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/etPasswordL"
+            android:layout_below="@+id/etPassword"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="115dp"
             android:layout_marginTop="3dp"

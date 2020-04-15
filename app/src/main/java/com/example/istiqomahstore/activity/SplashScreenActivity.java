@@ -13,7 +13,9 @@ import com.example.istiqomahstore.R;
 import com.example.istiqomahstore.helpers.SessionManager;
 
 public class SplashScreenActivity extends AppCompatActivity {
+
     private SessionManager sessionManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +34,7 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 if (sessionManager.getSpAlreadyLogin()) {
-                    startActivity(new Intent(getApplicationContext(), PaymentActivity.class)
+                    startActivity(new Intent(getApplicationContext(), MainProductActivity.class)
                             .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
                 }
                 else {

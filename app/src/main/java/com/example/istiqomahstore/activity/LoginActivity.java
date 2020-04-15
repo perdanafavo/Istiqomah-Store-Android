@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -13,6 +14,7 @@ import com.example.istiqomahstore.config.ENVIRONMENT;
 import com.example.istiqomahstore.helpers.CustomCompatActivity;
 import com.example.istiqomahstore.helpers.InternetChecker;
 import com.example.istiqomahstore.helpers.LoginDialog;
+import com.example.istiqomahstore.helpers.RandomString;
 import com.example.istiqomahstore.helpers.SessionManager;
 import com.example.istiqomahstore.models.submodels.UsersData;
 import com.example.istiqomahstore.presenters.ApplicationPresenter;
@@ -20,14 +22,19 @@ import com.example.istiqomahstore.views.ApplicationViews;
 
 import java.util.ArrayList;
 
-public class LoginActivity extends CustomCompatActivity implements ApplicationViews.LoginViews {
+public class LoginActivity extends CustomCompatActivity implements ApplicationViews.LoginViews,ApplicationViews.TokenViews {
 
     private SessionManager sessionManager;
     private ApplicationPresenter applicationPresenter;
     private Button btnLogin;
-    private EditText editUsername, editPassword;
+    private EditText etUsername, etPassword;
     private ProgressDialog mDialog;
-    private String username, password;
+    private int id;
+    private String username, password, token;
+    private TextView tvForgotPassword, tvRegister;
+
+    private static final int TIME_INTERVAL = 2000;
+    private long mBackPressed;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -44,6 +51,20 @@ public class LoginActivity extends CustomCompatActivity implements ApplicationVi
         mDialog.setMessage(ENVIRONMENT.NO_WAITING_MESSAGE);
         mDialog.setCancelable(false);
         mDialog.setIndeterminate(true);
+
+        tvForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                simpleIntent(ForgotPasswordActivity.class);
+            }
+        });
+
+        tvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                simpleIntent(RegisterActivity.class);
+            }
+        });
     }
 
     private void setVariable() {
@@ -51,13 +72,15 @@ public class LoginActivity extends CustomCompatActivity implements ApplicationVi
         applicationPresenter = new ApplicationPresenter(LoginActivity.this);
 
         btnLogin = findViewById(R.id.btnLogin);
-        editUsername = findViewById(R.id.etUsernameL);
-        editPassword = findViewById(R.id.etPasswordL);
+        etUsername = findViewById(R.id.etUsername);
+        etPassword = findViewById(R.id.etPassword);
+        tvForgotPassword = findViewById(R.id.tvForgotPassword);
+        tvRegister = findViewById(R.id.tvRegister);
     }
 
     private void cekLogin() {
         if (sessionManager.getSpAlreadyLogin()) {
-            simpleIntent(PaymentActivity.class);
+            simpleIntent(MainProductActivity.class);
         }  else {
             Login();
         }
@@ -70,8 +93,8 @@ public class LoginActivity extends CustomCompatActivity implements ApplicationVi
                 if (InternetChecker.isConnectedToInternet(getBaseContext())) {
                     mDialog.show();
 
-                    username = editUsername.getText().toString();
-                    password = editPassword.getText().toString();
+                    username = etUsername.getText().toString();
+                    password = etPassword.getText().toString();
 
                     if (username.matches("")) {
                         LoginDialog.paketLogin(1);
@@ -109,8 +132,8 @@ public class LoginActivity extends CustomCompatActivity implements ApplicationVi
     @Override
     public void successLogin(ArrayList<UsersData> data) {
         UsersData getResponse = data.get(0);
-        mDialog.dismiss();
-
+        token  = RandomString.token();
+        id = getResponse.getId();
         sessionManager.saveSPInt(SessionManager.SP_IDUSER, getResponse.getId());
         sessionManager.saveSPString(SessionManager.SP_NAME, getResponse.getNama());
         sessionManager.saveSPString(SessionManager.SP_USERNAME, getResponse.getUsername());
@@ -119,14 +142,48 @@ public class LoginActivity extends CustomCompatActivity implements ApplicationVi
         sessionManager.saveSPInt(SessionManager.SP_LASTLOGIN, getResponse.getLast_login());
         sessionManager.saveSPString(SessionManager.SP_ADDRESS, getResponse.getAlamat());
         sessionManager.saveSPString(SessionManager.SP_PHONE, getResponse.getPhone());
-        sessionManager.saveSPString(SessionManager.SP_TOKEN, getResponse.getToken());
+        sessionManager.saveSPString(SessionManager.SP_TOKEN, token);
         sessionManager.saveSPBoolean(SessionManager.SP_ALREADY_LOGIN, true);
-        simpleIntent(PaymentActivity.class);
+        applicationPresenter.updateToken();
     }
 
     @Override
     public void failedLogin(String message) {
         mDialog.dismiss();
         simpleToast(message);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //Klik 2x untuk keluar
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
+        {
+            finishAffinity();
+        }
+        else {
+            simpleToast(ENVIRONMENT.BACKPRESSED_MESSAGE);
+        }
+        mBackPressed = System.currentTimeMillis();
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String getToken() {
+        return token;
+    }
+
+    @Override
+    public void successToken(ArrayList<UsersData> data) {
+        mDialog.dismiss();
+        simpleIntent(MainProductActivity.class);
+    }
+
+    @Override
+    public void failedToken(String message) {
+
     }
 }
