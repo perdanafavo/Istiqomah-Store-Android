@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 
 import com.example.istiqomahstore.R;
+import com.example.istiqomahstore.config.ENVIRONMENT;
 import com.example.istiqomahstore.helpers.CustomCompatActivity;
 import com.example.istiqomahstore.helpers.RandomString;
 
@@ -19,10 +20,14 @@ import java.util.Random;
 
 public class MainProductActivity extends CustomCompatActivity {
 
+
     private Toolbar toolbarMainMenu;
     MenuItem menuItem;
     TextView badgeCounter;
     int pendingNotifications = 0;
+
+    private static final int TIME_INTERVAL = 2000;
+    private long mBackPressed;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +44,19 @@ public class MainProductActivity extends CustomCompatActivity {
 
     private void setVariable() {
         toolbarMainMenu = findViewById(R.id.toolbarMainMenu);
+    }
+
+    @Override
+    public void onBackPressed() {
+        //Klik 2x untuk keluar
+        if (mBackPressed + TIME_INTERVAL > System.currentTimeMillis())
+        {
+            finishAffinity();
+        }
+        else {
+            simpleToast(ENVIRONMENT.BACKPRESSED_MESSAGE);
+        }
+        mBackPressed = System.currentTimeMillis();
     }
 
     @Override
