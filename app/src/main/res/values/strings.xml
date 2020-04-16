@@ -49,4 +49,6 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="logout">Logout</string>
     <string name="notif_number">10</string>
+    <string name="welcome">Welcome !</string>
+    <string name="rp">Rp.</string>
 </resources>
