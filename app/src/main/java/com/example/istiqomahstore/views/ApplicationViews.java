@@ -1,5 +1,6 @@
 package com.example.istiqomahstore.views;
 
+import com.example.istiqomahstore.models.submodels.ProdukData;
 import com.example.istiqomahstore.models.submodels.UsersData;
 
 import java.util.ArrayList;
@@ -25,7 +26,14 @@ public interface ApplicationViews {
 
     interface RegisterViews{
         Map<String, String> GetRequestBody();
-        void successAdd(String message);
-        void failedAdd();
+        void successPostUser(String message);
+        void failedPostUser();
+    }
+
+    interface MainViews{
+        interface getProduk{
+            void successGetProduk(ArrayList<ProdukData> data);
+            void failedGetProduk(String message);
+        }
     }
 }

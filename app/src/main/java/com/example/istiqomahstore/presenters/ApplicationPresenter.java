@@ -9,6 +9,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.example.istiqomahstore.config.ENVIRONMENT;
 import com.example.istiqomahstore.models.Cek;
+import com.example.istiqomahstore.models.ProdukModels;
 import com.example.istiqomahstore.models.UsersModels;
 import com.example.istiqomahstore.views.ApplicationViews;
 
@@ -17,6 +18,8 @@ public class ApplicationPresenter {
     private ApplicationViews applicationViews;
     private ApplicationViews.LoginViews loginViews;
     private ApplicationViews.TokenViews tokenViews;
+    private ApplicationViews.MainViews mainViews;
+    private ApplicationViews.MainViews.getProduk getProduk;
 
     public ApplicationPresenter(Context context) {
         if (context instanceof ApplicationViews) applicationViews = (ApplicationViews) context;
@@ -24,6 +27,10 @@ public class ApplicationPresenter {
             loginViews = (ApplicationViews.LoginViews) context;
         if (context instanceof ApplicationViews.TokenViews)
             tokenViews = (ApplicationViews.TokenViews) context;
+        if (context instanceof ApplicationViews.MainViews)
+            mainViews = (ApplicationViews.MainViews) context;
+        if (context instanceof ApplicationViews.MainViews.getProduk)
+            getProduk = (ApplicationViews.MainViews.getProduk) context;
         page = context;
     }
 
@@ -81,6 +88,33 @@ public class ApplicationPresenter {
                             loginViews.failedLogin(er.getMessage());
                         } else {
                             loginViews.failedLogin(ENVIRONMENT.FAIL_GET);
+                        }
+                    }
+                });
+    }
+
+    public void getProduk(){
+        AndroidNetworking.get("https://istiqomah.diraya.co.id/api/produk")
+                .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsObject(ProdukModels.class, new ParsedRequestListener<ProdukModels>() {
+                    @Override
+                    public void onResponse(ProdukModels response) {
+                        if (response.getStatus()) {
+                            //Log.d("_CEK", "cek : "+ response.getData().get(0).getHarga_satuan());
+                            getProduk.successGetProduk(response.getData());
+                        } else {
+                            getProduk.failedGetProduk(response.getMessage());
+                        }
+                    }
+                    @Override
+                    public void onError(ANError anError) {
+                        if (anError.getErrorCode() != 0) {
+                            ProdukModels er = anError.getErrorAsObject(ProdukModels.class);
+                            getProduk.failedGetProduk(er.getMessage());
+                        } else {
+                            getProduk.failedGetProduk(ENVIRONMENT.FAIL_GET);
                         }
                     }
                 });
