@@ -43,6 +43,7 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
 
     //Variable
     ArrayList<ProdukData> produkData;
+    ProdukData prodData;
 
     //Constanta & Object
     int pendingNotifications = 0;

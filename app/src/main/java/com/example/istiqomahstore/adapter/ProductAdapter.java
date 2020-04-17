@@ -12,7 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.istiqomahstore.R;
 import com.example.istiqomahstore.activity.MainProductActivity;
+import com.example.istiqomahstore.config.ENVIRONMENT;
 import com.example.istiqomahstore.models.submodels.ProdukData;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +48,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         holder.productPrice.setText(produkData.get(position).getHarga_satuan().toString());
 
         //Fungsi set Image (SetImage) productImage
+        if (produkData.get(position).getGambar() != null) {
+            Picasso.get().load(ENVIRONMENT.FOTO_URL+produkData.get(position).getGambar())
+                    .error(R.drawable.ic_shopping_cart)
+                    .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
+                    .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                    .into(holder.productImage);
+            holder.productImage.setBackgroundResource(R.color.colorBlue);
+        }
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,6 +74,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView productName, productPrice;
         ImageView productImage;
+
         Button addToCart;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
