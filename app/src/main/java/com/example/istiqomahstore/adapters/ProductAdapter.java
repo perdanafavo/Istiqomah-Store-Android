@@ -1,4 +1,4 @@
-package com.example.istiqomahstore.adapter;
+package com.example.istiqomahstore.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +19,6 @@ import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
     private MainProductActivity mainProductActivity;

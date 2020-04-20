@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="@dimen/_130sdp"
-    android:layout_height="@dimen/_150sdp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="5dp"
     app:cardCornerRadius="8dp"
@@ -16,33 +16,33 @@
 
         <ImageView
             android:id="@+id/ivProduct"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/_80sdp"
             android:background="@drawable/shape_white_8dp"
-            android:layout_height="@dimen/_60sdp"
-            android:layout_alignParentTop="true"
+            android:layout_height="@dimen/_70sdp"
             android:contentDescription="@string/product_name"
             android:src="@drawable/logo"/>
 
         <TextView
             android:id="@+id/tvProductName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/ivProduct"
-            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/ivProduct"
             android:fontFamily="@font/segoe_ui"
-            android:text="Gula Pasir Gulaku 15 Kg"
-            android:textSize="@dimen/_11ssp" />
+            android:text="@string/gula_pasir"
+            android:textSize="@dimen/_13ssp"
+            android:layout_marginStart="10dp"/>
 
         <TextView
             android:id="@+id/tvrp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/tvProductName"
+            android:layout_toEndOf="@id/ivProduct"
             android:fontFamily="@font/segoe_ui_bold"
             android:text="@string/rp"
+            android:layout_marginStart="10dp"
             android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:textSize="@dimen/_11ssp"/>
+            android:textSize="@dimen/_13ssp"/>
 
         <TextView
             android:id="@+id/tvProductPrice"
@@ -55,20 +55,32 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:text="@string/hint_number"
-            android:textSize="@dimen/_11ssp"/>
+            android:textSize="@dimen/_13ssp"/>
 
-        <Button
-            android:id="@+id/btnAddToCart"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_20sdp"
+        <TextView
+            android:id="@+id/tvEditProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/tvrp"
-            android:textSize="@dimen/_11ssp"
-            android:layout_marginTop="5dp"
+            android:layout_toEndOf="@id/ivProduct"
             android:fontFamily="@font/segoe_ui"
-            android:textColor="@color/colorWhite"
-            android:background="@drawable/custom_button_1"
-            android:text="@string/add_to_cart"
-            android:textAlignment="center"/>
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/edit"
+            android:textColor="@color/colorBlue"
+            android:textSize="@dimen/_12ssp"/>
+
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:hint="@string/hint_number"
+            android:textAlignment="center"
+            android:textSize="@dimen/_13ssp"
+            android:fontFamily="@font/segoe_ui"
+            android:layout_below="@id/tvProductPrice"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/border_rectangle"/>
 
     </RelativeLayout>
 

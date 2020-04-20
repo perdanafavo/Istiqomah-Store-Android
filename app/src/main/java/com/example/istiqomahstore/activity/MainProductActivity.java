@@ -2,7 +2,6 @@ package com.example.istiqomahstore.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,18 +16,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.istiqomahstore.R;
-import com.example.istiqomahstore.adapter.ProductAdapter;
+import com.example.istiqomahstore.adapters.ProductAdapter;
 import com.example.istiqomahstore.config.ENVIRONMENT;
 import com.example.istiqomahstore.helpers.CustomCompatActivity;
-import com.example.istiqomahstore.helpers.RandomString;
 import com.example.istiqomahstore.helpers.SessionManager;
 import com.example.istiqomahstore.models.submodels.ProdukData;
 import com.example.istiqomahstore.presenters.ApplicationPresenter;
 import com.example.istiqomahstore.views.ApplicationViews;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class MainProductActivity extends CustomCompatActivity implements ApplicationViews.MainViews, ApplicationViews.MainViews.getProduk {
 
@@ -52,6 +48,7 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
     private SessionManager sessionManager;
     private ApplicationPresenter applicationPresenter;
     private ProductAdapter productAdapter;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

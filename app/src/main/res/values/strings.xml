@@ -51,4 +51,17 @@
     <string name="notif_number">10</string>
     <string name="welcome">Welcome !</string>
     <string name="rp">Rp.</string>
+    <string name="your_cart">Your Cart</string>
+    <string name="checkout">Checkout</string>
+    <string name="order_products">Order Products</string>
+    <string name="payment_details">Payment Details</string>
+    <string name="product_prices">Product Prices</string>
+    <string name="shipping">Shipping</string>
+    <string name="free">Free</string>
+    <string name="payment_totals">Payment Totals</string>
+    <string name="payment_methods">Payment Methods</string>
+    <string name="cash_in_place">Cash (In place)</string>
+    <string name="bank_transfer">Bank Transfer</string>
+    <string name="gula_pasir">Gula Pasir Gulaku 15 Kg</string>
+    <string name="edit">Edit</string>
 </resources>
