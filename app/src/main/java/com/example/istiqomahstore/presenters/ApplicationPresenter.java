@@ -9,6 +9,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.example.istiqomahstore.config.ENVIRONMENT;
 import com.example.istiqomahstore.models.Cek;
+import com.example.istiqomahstore.models.DetailCartModels;
 import com.example.istiqomahstore.models.IsiModels;
 import com.example.istiqomahstore.models.KeranjangModels;
 import com.example.istiqomahstore.models.ProdukModels;
@@ -25,6 +26,8 @@ public class ApplicationPresenter {
     private ApplicationViews.MainViews.getKeranjang getKeranjang;
     private ApplicationViews.MainViews.postKeranjang postKeranjang;
     private ApplicationViews.MainViews.isiViews isiViews;
+    private ApplicationViews.DetailCartViews detailCartViews;
+    private ApplicationViews.DetailCartViews.getCart getCart;
 
     public ApplicationPresenter(Context context) {
         if (context instanceof ApplicationViews) applicationViews = (ApplicationViews) context;
@@ -40,9 +43,12 @@ public class ApplicationPresenter {
             getKeranjang = (ApplicationViews.MainViews.getKeranjang) context;
         if (context instanceof ApplicationViews.MainViews.postKeranjang)
             postKeranjang = (ApplicationViews.MainViews.postKeranjang) context;
-        if (context instanceof ApplicationViews.MainViews.isiViews) {
+        if (context instanceof ApplicationViews.MainViews.isiViews)
             isiViews = (ApplicationViews.MainViews.isiViews) context;
-        }
+        if (context instanceof ApplicationViews.DetailCartViews)
+            detailCartViews = (ApplicationViews.DetailCartViews) context;
+        if (context instanceof ApplicationViews.DetailCartViews.getCart)
+            getCart = (ApplicationViews.DetailCartViews.getCart) context;
         page = context;
     }
 
@@ -210,6 +216,34 @@ public class ApplicationPresenter {
                             postKeranjang.failedPostKeranjang(er.getMessage());
                         } else {
                             postKeranjang.failedPostKeranjang(ENVIRONMENT.FAIL_GET);
+                        }
+                    }
+                });
+    }
+
+    public void getCart(int id){
+        AndroidNetworking.get("https://istiqomah.diraya.co.id/api/viewisi")
+                .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
+                .addQueryParameter("id_keranjang", Integer.toString(id))
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsObject(DetailCartModels.class, new ParsedRequestListener<DetailCartModels>() {
+                    @Override
+                    public void onResponse(DetailCartModels response) {
+                        if (response.isStatus()) {
+                            //Log.d("_CEK", "cek : "+ response.getData().get(0).getHarga_satuan());
+                            getCart.successGetCart(response.getData());
+                        } else {
+                            getCart.failedGetCart(response.getMessage());
+                        }
+                    }
+                    @Override
+                    public void onError(ANError anError) {
+                        if (anError.getErrorCode() != 0) {
+                            DetailCartModels er = anError.getErrorAsObject(DetailCartModels.class);
+                            getCart.failedGetCart(er.getMessage());
+                        } else {
+                            getProduk.failedGetProduk(ENVIRONMENT.FAIL_GET);
                         }
                     }
                 });

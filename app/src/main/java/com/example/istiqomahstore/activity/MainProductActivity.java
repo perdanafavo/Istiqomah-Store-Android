@@ -1,6 +1,7 @@
 package com.example.istiqomahstore.activity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -67,6 +68,17 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
         super.onResume();
     }
 
+
+    private void setVariable() {
+        sessionManager = new SessionManager(getApplicationContext());
+        applicationPresenter = new ApplicationPresenter(MainProductActivity.this);
+        tvUser = findViewById(R.id.tvUsername); tvUser.setText(sessionManager.getSpName());
+        searchProduct = findViewById(R.id.searchProduct);
+        rvProduct = findViewById(R.id.rvProduct);
+        rvProduct.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
+        toolbarMainMenu = findViewById(R.id.toolbarMainMenu);
+    }
+
     private void createView() {
         setSupportActionBar(toolbarMainMenu);
         mDialog = new ProgressDialog(MainProductActivity.this);
@@ -88,17 +100,6 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
             }
         });
     }
-
-    private void setVariable() {
-        sessionManager = new SessionManager(getApplicationContext());
-        applicationPresenter = new ApplicationPresenter(MainProductActivity.this);
-        tvUser = findViewById(R.id.tvUsername); tvUser.setText(sessionManager.getSpName());
-        searchProduct = findViewById(R.id.searchProduct);
-        rvProduct = findViewById(R.id.rvProduct);
-        rvProduct.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
-        toolbarMainMenu = findViewById(R.id.toolbarMainMenu);
-    }
-
 
     private void search(String text){
         ArrayList<ProdukData> filteredList = new ArrayList<>();
@@ -143,7 +144,8 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
            view.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-                   Toast.makeText(getApplicationContext(),"Cart", Toast.LENGTH_SHORT).show();
+//                   Toast.makeText(getApplicationContext(),"Cart", Toast.LENGTH_SHORT).show();
+                   simpleIntent(CartDetailActivity.class);
                }
            });
        }
@@ -151,7 +153,8 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
            @Override
            public boolean onMenuItemClick(MenuItem menuItem) {
-               Toast.makeText(getApplicationContext(),"Cart", Toast.LENGTH_SHORT).show();
+//               Toast.makeText(getApplicationContext(),"Cart", Toast.LENGTH_SHORT).show();
+               simpleIntent(CartDetailActivity.class);
                return true;
            }
        });
@@ -164,7 +167,11 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
         int id = item.getItemId();
 
         if (id == R.id.action_cart){
-            Toast.makeText(getApplicationContext(),"Cart", Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(this, CartDetailActivity.class);
+//            intent.putExtra("ISI", isiData);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+//            this.startActivity(intent);
+            simpleIntent(CartDetailActivity.class);
         } else if (id == R.id.action_edit_profile){
             Toast.makeText(getApplicationContext(),"Edit Profile", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.action_logout){

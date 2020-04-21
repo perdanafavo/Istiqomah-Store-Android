@@ -1,5 +1,6 @@
 package com.example.istiqomahstore.views;
 
+import com.example.istiqomahstore.models.submodels.DetailCartData;
 import com.example.istiqomahstore.models.submodels.IsiData;
 import com.example.istiqomahstore.models.submodels.KeranjangData;
 import com.example.istiqomahstore.models.submodels.ProdukData;
@@ -51,5 +52,11 @@ public interface ApplicationViews {
         }
     }
 
+    interface DetailCartViews{
+        interface getCart{
+            void successGetCart(ArrayList<DetailCartData> data);
+            void failedGetCart(String message);
+        }
+    }
 
 }
