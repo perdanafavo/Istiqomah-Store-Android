@@ -15,6 +15,9 @@ public class KeranjangModels {
     @SerializedName("data")
     private ArrayList<KeranjangData> data;
 
+    @SerializedName("id")
+    private int id;
+
     public void setStatus(boolean status){
         this.status= status;
     }
@@ -34,5 +37,13 @@ public class KeranjangModels {
     }
     public ArrayList<KeranjangData> getData(){
         return this.data;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

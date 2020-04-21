@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
@@ -34,6 +36,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     private Button btnAddToCart, btnCancel, btnPlus, btnMinus;
 
     private Dialog myDialog;
+    private int initialCounter;
+    private BigDecimal initialPrice,newPrice;
 
 
     public ProductAdapter(ArrayList<ProdukData> produkData){
@@ -52,7 +56,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
 
         holder.productName.setText(produkData.get(position).getNama_produk());
         holder.productPrice.setText(produkData.get(position).getHarga_satuan().toString());
@@ -67,10 +71,25 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             holder.productImage.setBackgroundResource(R.color.colorBlue);
         }
 
+        if(!produkData.get(position).getCek()) {
+            holder.addToCart.setEnabled(false);
+            holder.addToCart.setText("ADDED");
+            holder.addToCart.setBackgroundResource(R.drawable.custom_disable_button);
+//            holder.addToCart.setBackgroundColor(-7829368);
+        }
+        else{
+            holder.addToCart.setEnabled(true);
+            holder.addToCart.setText("ADD TO CART");
+            holder.addToCart.setBackgroundResource(R.drawable.custom_button_1);
+        }
+
         final int finalPosition = position;
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                initialCounter = 1;
+                initialPrice = produkData.get(finalPosition).getHarga_satuan();
+                newPrice = initialPrice;
 
                 myDialog = new Dialog(mainProductActivity);
                 myDialog.setContentView(R.layout.custom_popup_cart);
@@ -84,11 +103,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 btnPlus = myDialog.findViewById(R.id.btnPlus);
                 btnMinus = myDialog.findViewById(R.id.btnMinus);
 
+
                 myDialog.setCanceledOnTouchOutside(false);
 
                 tvProductName.setText(produkData.get(finalPosition).getNama_produk());
-                tvTotal.setText(produkData.get(finalPosition).getHarga_satuan().toString());
-
+                tvTotal.setText(initialPrice.toString());
+                tvQuantity.setText(Integer.toString(initialCounter));
                 if (produkData.get(finalPosition).getGambar() != null) {
                     Picasso.get().load(ENVIRONMENT.FOTO_URL+produkData.get(finalPosition).getGambar())
                             .error(R.drawable.ic_shopping_cart)
@@ -98,10 +118,31 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                     ivProduct.setBackgroundResource(R.color.colorBlue);
                 }
 
+                btnPlus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        initialCounter = initialCounter+1;
+                        newPrice = initialPrice.multiply(BigDecimal.valueOf(initialCounter));
+                        tvTotal.setText(newPrice.toString());
+                        tvQuantity.setText(Integer.toString(initialCounter));
+                    }
+                });
+
+                btnMinus.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (initialCounter>1){
+                            initialCounter = initialCounter-1;
+                            newPrice = initialPrice.multiply(BigDecimal.valueOf(initialCounter));
+                            tvTotal.setText(newPrice.toString());
+                            tvQuantity.setText(Integer.toString(initialCounter));
+                        }
+                    }
+                });
+
                 btnCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //cancel
                         myDialog.dismiss();
                     }
                 });

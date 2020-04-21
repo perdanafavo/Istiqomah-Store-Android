@@ -20,6 +20,8 @@ public class ProdukData {
     @SerializedName("gambar")
     private String gambar;
 
+    private boolean cek=true;
+
     public int getId_produk() {
         return id_produk;
     }
@@ -50,5 +52,14 @@ public class ProdukData {
 
     public void setGambar(String gambar) {
         this.gambar = gambar;
+    }
+
+
+    public boolean getCek() {
+        return cek;
+    }
+
+    public void setCek(boolean cek) {
+        this.cek = cek;
     }
 }

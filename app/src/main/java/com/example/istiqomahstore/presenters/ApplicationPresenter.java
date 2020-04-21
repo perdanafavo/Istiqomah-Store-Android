@@ -6,9 +6,12 @@ import android.util.Log;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.ParsedRequestListener;
 import com.example.istiqomahstore.config.ENVIRONMENT;
 import com.example.istiqomahstore.models.Cek;
+import com.example.istiqomahstore.models.IsiModels;
+import com.example.istiqomahstore.models.KeranjangModels;
 import com.example.istiqomahstore.models.ProdukModels;
 import com.example.istiqomahstore.models.UsersModels;
 import com.example.istiqomahstore.views.ApplicationViews;
@@ -20,6 +23,9 @@ public class ApplicationPresenter {
     private ApplicationViews.TokenViews tokenViews;
     private ApplicationViews.MainViews mainViews;
     private ApplicationViews.MainViews.getProduk getProduk;
+    private ApplicationViews.MainViews.getKeranjang getKeranjang;
+    private ApplicationViews.MainViews.postKeranjang postKeranjang;
+    private ApplicationViews.MainViews.isiViews isiViews;
 
     public ApplicationPresenter(Context context) {
         if (context instanceof ApplicationViews) applicationViews = (ApplicationViews) context;
@@ -31,6 +37,13 @@ public class ApplicationPresenter {
             mainViews = (ApplicationViews.MainViews) context;
         if (context instanceof ApplicationViews.MainViews.getProduk)
             getProduk = (ApplicationViews.MainViews.getProduk) context;
+        if (context instanceof ApplicationViews.MainViews.getKeranjang)
+            getKeranjang = (ApplicationViews.MainViews.getKeranjang) context;
+        if (context instanceof ApplicationViews.MainViews.postKeranjang)
+            postKeranjang = (ApplicationViews.MainViews.postKeranjang) context;
+        if (context instanceof ApplicationViews.MainViews.isiViews) {
+            isiViews = (ApplicationViews.MainViews.isiViews) context;
+        }
         page = context;
     }
 
@@ -115,6 +128,89 @@ public class ApplicationPresenter {
                             getProduk.failedGetProduk(er.getMessage());
                         } else {
                             getProduk.failedGetProduk(ENVIRONMENT.FAIL_GET);
+                        }
+                    }
+                });
+    }
+
+    public void getKeranjang(int id){
+        AndroidNetworking.get("https://istiqomah.diraya.co.id/api/keranjang")
+                .addQueryParameter("id_user", Integer.toString(id))
+                .addQueryParameter("status", "BELUM DIBAYAR")
+                .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsObject(KeranjangModels.class, new ParsedRequestListener<KeranjangModels>() {
+                    @Override
+                    public void onResponse(KeranjangModels response) {
+                        if (response.getStatus()) {
+                            getKeranjang.successGetKeranjang(response.getData());
+                        } else {
+                            getKeranjang.failedGetKeranjang(response.getMessage());
+                        }
+                    }
+                    @Override
+                    public void onError(ANError anError) {
+                        if (anError.getErrorCode() != 0) {
+                            KeranjangModels er = anError.getErrorAsObject(KeranjangModels.class);
+                            getKeranjang.failedGetKeranjang(er.getMessage());
+                        } else {
+                            getKeranjang.failedGetKeranjang(ENVIRONMENT.FAIL_GET);
+                        }
+                    }
+                });
+    }
+
+    public void getIsi(int id){
+        AndroidNetworking.get("https://istiqomah.diraya.co.id/api/isi")
+                .addQueryParameter("id_keranjang", Integer.toString(id))
+                .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsObject(IsiModels.class, new ParsedRequestListener<IsiModels>() {
+                    @Override
+                    public void onResponse(IsiModels response) {
+                        if (response.isStatus()) {
+                            isiViews.successGetIsi(response.getData());
+                        } else {
+                            isiViews.failedGetIsi(response.getMessage());
+                        }
+                    }
+                    @Override
+                    public void onError(ANError anError) {
+                        if (anError.getErrorCode() != 0) {
+                            IsiModels er = anError.getErrorAsObject(IsiModels.class);
+                            isiViews.failedGetIsi(er.getMessage());
+                        } else {
+                            getProduk.failedGetProduk(ENVIRONMENT.FAIL_GET);
+                        }
+                    }
+                });
+    }
+
+    public void postKeranjang(int id){
+        AndroidNetworking.post("https://istiqomah.diraya.co.id/api/keranjang")
+                .addBodyParameter("id_user", Integer.toString(id))
+                .addBodyParameter("tgl_keranjang", Long.toString(System.currentTimeMillis() / 1000L))
+                .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsObject(KeranjangModels.class, new ParsedRequestListener<KeranjangModels>() {
+                    @Override
+                    public void onResponse(KeranjangModels response) {
+                        if (response.getStatus()) {
+                            postKeranjang.successPostKeranjang(response.getId());
+                        } else {
+                            postKeranjang.failedPostKeranjang(response.getMessage());
+                        }
+                    }
+                    @Override
+                    public void onError(ANError anError) {
+                        if (anError.getErrorCode() != 0) {
+                            KeranjangModels er = anError.getErrorAsObject(KeranjangModels.class);
+                            postKeranjang.failedPostKeranjang(er.getMessage());
+                        } else {
+                            postKeranjang.failedPostKeranjang(ENVIRONMENT.FAIL_GET);
                         }
                     }
                 });

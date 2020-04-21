@@ -2,6 +2,7 @@ package com.example.istiqomahstore.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,13 +21,16 @@ import com.example.istiqomahstore.adapters.ProductAdapter;
 import com.example.istiqomahstore.config.ENVIRONMENT;
 import com.example.istiqomahstore.helpers.CustomCompatActivity;
 import com.example.istiqomahstore.helpers.SessionManager;
+import com.example.istiqomahstore.models.submodels.IsiData;
+import com.example.istiqomahstore.models.submodels.KeranjangData;
 import com.example.istiqomahstore.models.submodels.ProdukData;
 import com.example.istiqomahstore.presenters.ApplicationPresenter;
 import com.example.istiqomahstore.views.ApplicationViews;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MainProductActivity extends CustomCompatActivity implements ApplicationViews.MainViews, ApplicationViews.MainViews.getProduk {
+public class MainProductActivity extends CustomCompatActivity implements ApplicationViews.MainViews, ApplicationViews.MainViews.getProduk, ApplicationViews.MainViews.getKeranjang, ApplicationViews.MainViews.postKeranjang, ApplicationViews.MainViews.isiViews {
 
 
     //Views
@@ -39,7 +43,9 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
 
     //Variable
     ArrayList<ProdukData> produkData;
+    ArrayList<IsiData> isiData;
     ProdukData prodData;
+    private int idCart;
 
     //Constanta & Object
     int pendingNotifications = 0;
@@ -69,7 +75,7 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
         mDialog.setCancelable(false);
         mDialog.setIndeterminate(true);
         mDialog.show();
-        applicationPresenter.getProduk();
+        applicationPresenter.getKeranjang(sessionManager.getSpIduser());
         searchProduct.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -87,13 +93,13 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
     private void setVariable() {
         sessionManager = new SessionManager(getApplicationContext());
         applicationPresenter = new ApplicationPresenter(MainProductActivity.this);
-
         tvUser = findViewById(R.id.tvUsername); tvUser.setText(sessionManager.getSpName());
         searchProduct = findViewById(R.id.searchProduct);
         rvProduct = findViewById(R.id.rvProduct);
         rvProduct.setLayoutManager(new GridLayoutManager(getApplicationContext(),2));
         toolbarMainMenu = findViewById(R.id.toolbarMainMenu);
     }
+
 
     private void search(String text){
         ArrayList<ProdukData> filteredList = new ArrayList<>();
@@ -102,7 +108,9 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
                 filteredList.add(item);
             }
         }
-        rvProduct.setAdapter(new ProductAdapter(filteredList));
+        productAdapter.setData(filteredList);
+        productAdapter.notifyDataSetChanged();
+//        rvProduct.setAdapter(new ProductAdapter(filteredList));
     }
 
     @Override
@@ -168,13 +176,75 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
 
     @Override
     public void successGetProduk(ArrayList<ProdukData> data) {
+        List<Integer> produkAdded = new ArrayList<>();
+        ArrayList<ProdukData> filledCart = new ArrayList<>();
+
+        if(isiData==null){
+            produkData=data;
+        }
+        else{
+            for (IsiData isi : isiData){
+                produkAdded.add(isi.getId_produk());
+            }
+            Log.d("_Cek", "message" +produkAdded);
+            for (int a : produkAdded){
+                for (ProdukData item : data){
+                    if(item.getId_produk()==a){
+                        item.setCek(false);
+                    }
+                    else{
+                        item.setCek(true);
+                    }
+                    filledCart.add(item);
+                }
+            }
+
+            produkData=filledCart;
+        }
+        productAdapter =  new ProductAdapter(produkData);
+        rvProduct.setAdapter(productAdapter);
         mDialog.dismiss();
-        produkData=data;
-        rvProduct.setAdapter(new ProductAdapter(produkData));
     }
 
     @Override
     public void failedGetProduk(String message) {
-        simpleToast(message);
+        simpleToast(message+"failProduk");
+    }
+
+    @Override
+    public void successGetKeranjang(ArrayList<KeranjangData> data) {
+        idCart = data.get(0).getId_keranjang();
+        sessionManager.saveSPInt(SessionManager.SP_CART, idCart);
+        applicationPresenter.getIsi(idCart);
+    }
+
+    @Override
+    public void failedGetKeranjang(String message) {
+        applicationPresenter.postKeranjang(sessionManager.getSpIduser());
+    }
+
+    @Override
+    public void successPostKeranjang(int id) {
+        idCart = id;
+        sessionManager.saveSPInt(SessionManager.SP_CART, idCart);
+        applicationPresenter.getIsi(sessionManager.getSpCart());
+    }
+
+    @Override
+    public void failedPostKeranjang(String message) {
+        simpleToast(message+"FailPostKeranjang");
+        mDialog.dismiss();
+    }
+
+    @Override
+    public void successGetIsi(ArrayList<IsiData> data) {
+        isiData = data;
+        applicationPresenter.getProduk();
+    }
+
+    @Override
+    public void failedGetIsi(String message) {
+        applicationPresenter.getProduk();
+        mDialog.dismiss();
     }
 }

@@ -1,5 +1,7 @@
 package com.example.istiqomahstore.views;
 
+import com.example.istiqomahstore.models.submodels.IsiData;
+import com.example.istiqomahstore.models.submodels.KeranjangData;
 import com.example.istiqomahstore.models.submodels.ProdukData;
 import com.example.istiqomahstore.models.submodels.UsersData;
 
@@ -35,5 +37,19 @@ public interface ApplicationViews {
             void successGetProduk(ArrayList<ProdukData> data);
             void failedGetProduk(String message);
         }
+        interface getKeranjang{
+            void successGetKeranjang(ArrayList<KeranjangData> data);
+            void failedGetKeranjang(String message);
+        }
+        interface postKeranjang{
+            void successPostKeranjang(int id);
+            void failedPostKeranjang(String message);
+        }
+        interface isiViews{
+            void successGetIsi(ArrayList<IsiData> data);
+            void failedGetIsi(String message);
+        }
     }
+
+
 }
