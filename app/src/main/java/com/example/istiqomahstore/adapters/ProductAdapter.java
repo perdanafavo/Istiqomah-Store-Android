@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -73,22 +72,21 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
         if(!produkData.get(position).getCek()) {
             holder.addToCart.setEnabled(false);
-            holder.addToCart.setText("ADDED");
+            holder.addToCart.setText(R.string.added);
             holder.addToCart.setBackgroundResource(R.drawable.custom_disable_button);
 //            holder.addToCart.setBackgroundColor(-7829368);
         }
         else{
             holder.addToCart.setEnabled(true);
-            holder.addToCart.setText("ADD TO CART");
+            holder.addToCart.setText(R.string.add_to_cart);
             holder.addToCart.setBackgroundResource(R.drawable.custom_button_1);
         }
 
-        final int finalPosition = position;
         holder.addToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 initialCounter = 1;
-                initialPrice = produkData.get(finalPosition).getHarga_satuan();
+                initialPrice = produkData.get(position).getHarga_satuan();
                 newPrice = initialPrice;
 
                 myDialog = new Dialog(mainProductActivity);
@@ -106,11 +104,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
                 myDialog.setCanceledOnTouchOutside(false);
 
-                tvProductName.setText(produkData.get(finalPosition).getNama_produk());
+                tvProductName.setText(produkData.get(position).getNama_produk());
                 tvTotal.setText(initialPrice.toString());
                 tvQuantity.setText(Integer.toString(initialCounter));
-                if (produkData.get(finalPosition).getGambar() != null) {
-                    Picasso.get().load(ENVIRONMENT.FOTO_URL+produkData.get(finalPosition).getGambar())
+                if (produkData.get(position).getGambar() != null) {
+                    Picasso.get().load(ENVIRONMENT.FOTO_URL+produkData.get(position).getGambar())
                             .error(R.drawable.ic_shopping_cart)
                             .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
                             .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)

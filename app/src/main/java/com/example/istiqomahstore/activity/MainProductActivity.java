@@ -44,7 +44,6 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
     //Variable
     ArrayList<ProdukData> produkData;
     ArrayList<IsiData> isiData;
-    ProdukData prodData;
     private int idCart;
 
     //Constanta & Object
