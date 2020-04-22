@@ -29,6 +29,20 @@ public class ForgotPasswordActivity extends CustomCompatActivity {
     }
 
     private void createView() {
+        backMenu();
+        requestPassword();
+    }
+
+    private void requestPassword() {
+        btnRequestPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                simpleIntent(SuccessForgotActivity.class);
+            }
+        });
+    }
+
+    private void backMenu() {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

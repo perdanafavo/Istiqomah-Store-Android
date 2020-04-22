@@ -13,5 +13,6 @@ public class ENVIRONMENT {
     public static final String NO_WAITING_MESSAGE = "Mohon Tunggu";
     public static final String NO_INTERNET = "Anda belum terhubung dengan internet";
     public static final String BACKPRESSED_MESSAGE = "Tekan Back sekali lagi untuk Keluar";
+    public static final String CART_EMPTY = "Keranjang Anda masih kosong";
 
 }

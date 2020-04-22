@@ -167,7 +167,6 @@
 
         <EditText
             android:id="@+id/etPhoneNumber"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="255dp"
@@ -193,7 +192,7 @@
             android:textSize="@dimen/_13ssp" />
 
         <EditText
-            android:id="@+id/tvUsername"
+            android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="320dp"

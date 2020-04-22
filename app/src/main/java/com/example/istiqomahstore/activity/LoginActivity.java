@@ -52,13 +52,20 @@ public class LoginActivity extends CustomCompatActivity implements ApplicationVi
         mDialog.setCancelable(false);
         mDialog.setIndeterminate(true);
 
+        registerPage();
+        forgotPasswordPage();
+    }
+
+    private void forgotPasswordPage() {
         tvForgotPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 simpleIntent(ForgotPasswordActivity.class);
             }
         });
+    }
 
+    private void registerPage() {
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -2,12 +2,12 @@ package com.example.istiqomahstore.activity;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,8 +17,6 @@ import com.example.istiqomahstore.config.ENVIRONMENT;
 import com.example.istiqomahstore.helpers.CustomCompatActivity;
 import com.example.istiqomahstore.helpers.SessionManager;
 import com.example.istiqomahstore.models.submodels.DetailCartData;
-import com.example.istiqomahstore.models.submodels.IsiData;
-import com.example.istiqomahstore.models.submodels.ProdukData;
 import com.example.istiqomahstore.presenters.ApplicationPresenter;
 import com.example.istiqomahstore.views.ApplicationViews;
 
@@ -27,12 +25,12 @@ import java.util.ArrayList;
 public class CartDetailActivity extends CustomCompatActivity implements ApplicationViews.DetailCartViews, ApplicationViews.DetailCartViews.getCart {
 
     //Views
-    TextView tvProductCartPrice, tvPaymentTotal;
-    RecyclerView rvCart;
-    Button btnCheckout;
-    ImageButton btnBack;
-    RadioButton rbPayment;
-    ProgressDialog mDialog;
+    private TextView tvProductCartPrice, tvPaymentTotal;
+    private RecyclerView rvCart;
+    private Button btnCheckout;
+    private ImageButton btnBack;
+    private RadioButton rbPayment;
+    private ProgressDialog mDialog;
 
     //Variable
     private int idCart;
@@ -48,6 +46,7 @@ public class CartDetailActivity extends CustomCompatActivity implements Applicat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_detail);
+
         setVariable();
         createView();
     }
@@ -61,6 +60,7 @@ public class CartDetailActivity extends CustomCompatActivity implements Applicat
         btnCheckout = findViewById(R.id.btnCheckout);
         btnBack = findViewById(R.id.btnBack);
         rvCart = findViewById(R.id.rvCart);
+
         rvCart.setLayoutManager(new LinearLayoutManager(this));
         rbPayment = findViewById(R.id.radioPaymentBank);
     }
@@ -71,7 +71,30 @@ public class CartDetailActivity extends CustomCompatActivity implements Applicat
         mDialog.setCancelable(false);
         mDialog.setIndeterminate(true);
         mDialog.show();
+
         applicationPresenter.getCart(idCart);
+
+        backMenu();
+        checkoutOrder();
+    }
+
+    private void checkoutOrder() {
+        btnCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //checkkout order
+                simpleIntent(PaymentActivity.class);
+            }
+        });
+    }
+
+    private void backMenu() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
 
@@ -85,6 +108,7 @@ public class CartDetailActivity extends CustomCompatActivity implements Applicat
 
     @Override
     public void failedGetCart(String message) {
-        simpleToast(message);
+        simpleToast(ENVIRONMENT.CART_EMPTY);
+        mDialog.dismiss();
     }
 }

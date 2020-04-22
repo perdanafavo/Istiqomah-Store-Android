@@ -26,22 +26,28 @@ public class RegisterActivity extends CustomCompatActivity {
 
         setVariable();
         createView();
-
     }
 
     private void createView() {
-        tvLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                simpleIntent(LoginActivity.class);
-                finish();
-            }
-        });
+        loginPage();
+        registerUser();
+    }
 
+    private void registerUser() {
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+            }
+        });
+    }
+
+    private void loginPage() {
+        tvLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                simpleIntent(LoginActivity.class);
+                finishAffinity();
             }
         });
     }

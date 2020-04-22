@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.istiqomahstore.R;
 import com.example.istiqomahstore.activity.CartDetailActivity;
-import com.example.istiqomahstore.activity.MainProductActivity;
 import com.example.istiqomahstore.config.ENVIRONMENT;
 import com.example.istiqomahstore.models.submodels.DetailCartData;
 import com.squareup.picasso.MemoryPolicy;
@@ -35,7 +34,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
     private Dialog myDialog;
 
     //Variable
-    BigDecimal totalHarga;
+    private BigDecimal totalHarga;
 
     public CartAdapter(ArrayList<DetailCartData> detailCartData){
         this.detailCartData=detailCartData;

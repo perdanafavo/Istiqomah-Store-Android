@@ -1,7 +1,6 @@
 package com.example.istiqomahstore.activity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -9,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -36,19 +34,19 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
 
     //Views
     private Toolbar toolbarMainMenu;
-    MenuItem menuItem;
-    TextView badgeCounter, tvUser;
-    SearchView searchProduct;
-    RecyclerView rvProduct;
+    protected MenuItem menuItem;
+    protected TextView badgeCounter, tvUser;
+    private SearchView searchProduct;
+    private RecyclerView rvProduct;
     private ProgressDialog mDialog;
 
     //Variable
-    ArrayList<ProdukData> produkData;
-    ArrayList<IsiData> isiData;
+    private ArrayList<ProdukData> produkData;
+    private ArrayList<IsiData> isiData;
     private int idCart;
 
     //Constanta & Object
-    int pendingNotifications = 0;
+    protected int pendingNotifications = 0;
     private static final int TIME_INTERVAL = 2000;
     private long mBackPressed;
     private SessionManager sessionManager;
@@ -59,6 +57,7 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_product);
+
         setVariable();
         createView();
     }
@@ -86,7 +85,9 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
         mDialog.setCancelable(false);
         mDialog.setIndeterminate(true);
         mDialog.show();
+
         applicationPresenter.getKeranjang(sessionManager.getSpIduser());
+
         searchProduct.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -144,7 +145,6 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
            view.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View view) {
-//                   Toast.makeText(getApplicationContext(),"Cart", Toast.LENGTH_SHORT).show();
                    simpleIntent(CartDetailActivity.class);
                }
            });
@@ -153,7 +153,6 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
            @Override
            public boolean onMenuItemClick(MenuItem menuItem) {
-//               Toast.makeText(getApplicationContext(),"Cart", Toast.LENGTH_SHORT).show();
                simpleIntent(CartDetailActivity.class);
                return true;
            }
@@ -172,9 +171,11 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
 //            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
 //            this.startActivity(intent);
             simpleIntent(CartDetailActivity.class);
-        } else if (id == R.id.action_edit_profile){
-            Toast.makeText(getApplicationContext(),"Edit Profile", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.action_logout){
+        }
+        else if (id == R.id.action_edit_profile) {
+            simpleIntent(EditProfileActivity.class);
+        }
+        else if (id == R.id.action_logout){
             outDialogMessage();
         }
         return true;
