@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.math.BigDecimal;
+
 public class SessionManager {
     private static final String SP_DIMAS_APP = "spDimasApp";
     public static final String SP_IDUSER= "spIdUser";
@@ -17,6 +19,7 @@ public class SessionManager {
     public static final String SP_PHONE= "spPhone";
     public static final String SP_TOKEN= "spToken";
     public static final String SP_CART= "spCart";
+    public static final String SP_PRICE= "spPrice";
     public static final String SP_ALREADY_LOGIN = "spAlreadyLogin";
 
     private SharedPreferences sp;
@@ -94,6 +97,10 @@ public class SessionManager {
 
     public int getSpCart() {
         return sp.getInt(SP_CART, 0);
+    }
+
+    public int getSpPrice() {
+        return sp.getInt(SP_PRICE, 0);
     }
 
     public Boolean getSpAlreadyLogin() { return sp.getBoolean(SP_ALREADY_LOGIN, false);}

@@ -41,6 +41,8 @@ public interface ApplicationViews {
         interface getKeranjang{
             void successGetKeranjang(ArrayList<KeranjangData> data);
             void failedGetKeranjang(String message);
+            void setNewPrice(int price);
+            int getIdKeranjang();
         }
         interface postKeranjang{
             void successPostKeranjang(int id);
@@ -49,6 +51,10 @@ public interface ApplicationViews {
         interface isiViews{
             void successGetIsi(ArrayList<IsiData> data);
             void failedGetIsi(String message);
+        }
+        interface postIsi{
+            void successPostIsi(String messsage);
+            void failedPostIsi(String message);
         }
     }
 

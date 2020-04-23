@@ -1,6 +1,8 @@
 package com.example.istiqomahstore.adapters;
 
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.view.LayoutInflater;
@@ -17,15 +19,20 @@ import com.example.istiqomahstore.R;
 import com.example.istiqomahstore.activity.MainProductActivity;
 import com.example.istiqomahstore.config.ENVIRONMENT;
 import com.example.istiqomahstore.models.submodels.ProdukData;
+import com.example.istiqomahstore.presenters.ApplicationPresenter;
+import com.example.istiqomahstore.views.ApplicationViews;
 import com.squareup.picasso.MemoryPolicy;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
 
+    private ApplicationViews.MainViews.getKeranjang putPrice;
     private MainProductActivity mainProductActivity;
     private ArrayList<ProdukData> produkData;
     private String activityTitle;
@@ -36,11 +43,19 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     private Dialog myDialog;
     private int initialCounter;
+    private Context context;
     private BigDecimal initialPrice,newPrice;
+    private ApplicationPresenter applicationPresenter;
+    private ProgressDialog mDialog;
+    private Map<String,String> param = new HashMap<>();
 
 
-    public ProductAdapter(ArrayList<ProdukData> produkData){
+    public ProductAdapter(Context context, ArrayList<ProdukData> produkData){
         this.produkData =produkData;
+        this.context = context;
+        if (context instanceof ApplicationViews.MainViews.getKeranjang)
+            putPrice = (ApplicationViews.MainViews.getKeranjang) context;
+        applicationPresenter = new ApplicationPresenter(context);
     }
 
     public void setData(ArrayList<ProdukData> newData){
@@ -55,7 +70,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
         holder.productName.setText(produkData.get(position).getNama_produk());
         holder.productPrice.setText(produkData.get(position).getHarga_satuan().toString());
@@ -148,7 +163,17 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 btnAddToCart.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        //Add to cart
+                        param.clear();
+                        param.put("id_keranjang", Integer.toString(putPrice.getIdKeranjang()));
+                        param.put("id_produk", Integer.toString(produkData.get(position).getId_produk()));
+                        param.put("jumlah", Integer.toString(initialCounter));
+                        param.put("harga", newPrice.toString());
+                        applicationPresenter.postIsi(param);
+                        mDialog = new ProgressDialog(context);
+                        mDialog.setMessage(ENVIRONMENT.NO_WAITING_MESSAGE);
+                        mDialog.setCancelable(false);
+                        mDialog.setIndeterminate(true);
+                        mDialog.show();
                     }
                 });
 

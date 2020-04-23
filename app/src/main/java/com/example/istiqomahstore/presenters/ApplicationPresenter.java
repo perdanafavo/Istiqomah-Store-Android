@@ -14,7 +14,10 @@ import com.example.istiqomahstore.models.IsiModels;
 import com.example.istiqomahstore.models.KeranjangModels;
 import com.example.istiqomahstore.models.ProdukModels;
 import com.example.istiqomahstore.models.UsersModels;
+import com.example.istiqomahstore.models.submodels.IsiData;
 import com.example.istiqomahstore.views.ApplicationViews;
+
+import java.util.Map;
 
 public class ApplicationPresenter {
     Context page;
@@ -26,8 +29,10 @@ public class ApplicationPresenter {
     private ApplicationViews.MainViews.getKeranjang getKeranjang;
     private ApplicationViews.MainViews.postKeranjang postKeranjang;
     private ApplicationViews.MainViews.isiViews isiViews;
+    private ApplicationViews.MainViews.postIsi postIsi;
     private ApplicationViews.DetailCartViews detailCartViews;
     private ApplicationViews.DetailCartViews.getCart getCart;
+
 
     public ApplicationPresenter(Context context) {
         if (context instanceof ApplicationViews) applicationViews = (ApplicationViews) context;
@@ -45,6 +50,8 @@ public class ApplicationPresenter {
             postKeranjang = (ApplicationViews.MainViews.postKeranjang) context;
         if (context instanceof ApplicationViews.MainViews.isiViews)
             isiViews = (ApplicationViews.MainViews.isiViews) context;
+        if (context instanceof ApplicationViews.MainViews.postIsi)
+            postIsi = (ApplicationViews.MainViews.postIsi) context;
         if (context instanceof ApplicationViews.DetailCartViews)
             detailCartViews = (ApplicationViews.DetailCartViews) context;
         if (context instanceof ApplicationViews.DetailCartViews.getCart)
@@ -244,6 +251,33 @@ public class ApplicationPresenter {
                             getCart.failedGetCart(er.getMessage());
                         } else {
                             getProduk.failedGetProduk(ENVIRONMENT.FAIL_GET);
+                        }
+                    }
+                });
+    }
+
+    public void postIsi(Map<String, String> param){
+        AndroidNetworking.post("https://istiqomah.diraya.co.id/api/isi")
+                .addBodyParameter(param)
+                .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsObject(IsiModels.class, new ParsedRequestListener<IsiModels>() {
+                    @Override
+                    public void onResponse(IsiModels response) {
+                        if (response.isStatus()) {
+                            postIsi.successPostIsi(response.getMessage());
+                        } else {
+                            postIsi.failedPostIsi(response.getMessage());
+                        }
+                    }
+                    @Override
+                    public void onError(ANError anError) {
+                        if (anError.getErrorCode() != 0) {
+                            KeranjangModels er = anError.getErrorAsObject(KeranjangModels.class);
+                            postIsi.failedPostIsi(er.getMessage());
+                        } else {
+                            postIsi.failedPostIsi(ENVIRONMENT.FAIL_GET);
                         }
                     }
                 });

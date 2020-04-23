@@ -26,11 +26,11 @@ import com.example.istiqomahstore.models.submodels.ProdukData;
 import com.example.istiqomahstore.presenters.ApplicationPresenter;
 import com.example.istiqomahstore.views.ApplicationViews;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainProductActivity extends CustomCompatActivity implements ApplicationViews.MainViews, ApplicationViews.MainViews.getProduk, ApplicationViews.MainViews.getKeranjang, ApplicationViews.MainViews.postKeranjang, ApplicationViews.MainViews.isiViews {
-
+public class MainProductActivity extends CustomCompatActivity implements ApplicationViews.MainViews, ApplicationViews.MainViews.getProduk, ApplicationViews.MainViews.getKeranjang, ApplicationViews.MainViews.postKeranjang, ApplicationViews.MainViews.isiViews, ApplicationViews.MainViews.postIsi {
 
     //Views
     private Toolbar toolbarMainMenu;
@@ -44,6 +44,7 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
     private ArrayList<ProdukData> produkData;
     private ArrayList<IsiData> isiData;
     private int idCart;
+    private int hargaTotal;
 
     //Constanta & Object
     protected int pendingNotifications = 0;
@@ -184,6 +185,7 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
     @Override
     public void successGetProduk(ArrayList<ProdukData> data) {
         List<Integer> produkAdded = new ArrayList<>();
+        List<Integer> notAdded = new ArrayList<>();
         ArrayList<ProdukData> filledCart = new ArrayList<>();
 
         if(isiData==null){
@@ -198,17 +200,20 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
                 for (ProdukData item : data){
                     if(item.getId_produk()==a){
                         item.setCek(false);
+                        filledCart.add(item);
                     }
-                    else{
-                        item.setCek(true);
-                    }
-                    filledCart.add(item);
                 }
             }
-
+            for (int a : produkAdded){
+                for (ProdukData item : data){
+                    if(item.getId_produk()!=a && item.getCek()){
+                        filledCart.add(item);
+                    }
+                }
+            }
             produkData=filledCart;
         }
-        productAdapter =  new ProductAdapter(produkData);
+        productAdapter =  new ProductAdapter(MainProductActivity.this, produkData);
         rvProduct.setAdapter(productAdapter);
         mDialog.dismiss();
     }
@@ -221,7 +226,9 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
     @Override
     public void successGetKeranjang(ArrayList<KeranjangData> data) {
         idCart = data.get(0).getId_keranjang();
+        hargaTotal = data.get(0).getTotal_harga().intValue();
         sessionManager.saveSPInt(SessionManager.SP_CART, idCart);
+        sessionManager.saveSPInt(SessionManager.SP_PRICE, hargaTotal);
         applicationPresenter.getIsi(idCart);
     }
 
@@ -231,9 +238,22 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
     }
 
     @Override
+    public void setNewPrice(int price) {
+        hargaTotal = price;
+        sessionManager.saveSPInt(SessionManager.SP_PRICE, hargaTotal);
+    }
+
+    @Override
+    public int getIdKeranjang() {
+        return idCart;
+    }
+
+    @Override
     public void successPostKeranjang(int id) {
         idCart = id;
+        hargaTotal = 0;
         sessionManager.saveSPInt(SessionManager.SP_CART, idCart);
+        sessionManager.saveSPInt(SessionManager.SP_PRICE, hargaTotal);
         applicationPresenter.getIsi(sessionManager.getSpCart());
     }
 
@@ -253,5 +273,19 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
     public void failedGetIsi(String message) {
         applicationPresenter.getProduk();
         mDialog.dismiss();
+    }
+
+    @Override
+    public void successPostIsi(String messsage) {
+        simpleToast(messsage);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void failedPostIsi(String message) {
+        simpleToast(message);
     }
 }
