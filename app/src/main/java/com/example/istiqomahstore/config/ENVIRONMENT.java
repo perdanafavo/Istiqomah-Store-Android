@@ -2,8 +2,8 @@ package com.example.istiqomahstore.config;
 
 public class ENVIRONMENT {
     //URL
-    public static final String BASE_URL = "https://istiqomah.diraya.co.id/api/";
-    public static final String FOTO_URL ="https://istiqomah.diraya.co.id/upload/produk/" ;
+    public static final String BASE_URL = "https://istiqomah.diraya.co.id/api/index.php/api/";
+    public static final String FOTO_URL ="https://istiqomah.diraya.co.id/web/upload/produk/" ;
 
     //ERROR MESSAGE
     public static final String FAIL_GET = "Terjadi kesalahan, Coba lagi nanti";

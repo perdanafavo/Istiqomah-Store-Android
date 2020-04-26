@@ -60,7 +60,7 @@ public class ApplicationPresenter {
     }
 
     public void loginProcess() {
-        AndroidNetworking.get("https://istiqomah.diraya.co.id/api/authentication")
+        AndroidNetworking.get(ENVIRONMENT.BASE_URL + "authentication")
                 .addQueryParameter("username", loginViews.getUsername())
                 .addQueryParameter("password", loginViews.getPassword())
                 .addQueryParameter("login", "TRUE")
@@ -90,7 +90,7 @@ public class ApplicationPresenter {
     }
 
     public void updateToken(){
-        AndroidNetworking.put("https://istiqomah.diraya.co.id/api/authentication")
+        AndroidNetworking.put(ENVIRONMENT.BASE_URL + "authentication")
                 .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
                 .addBodyParameter("id", Integer.toString(tokenViews.getId()))
                 .addBodyParameter("token", tokenViews.getToken())
@@ -119,7 +119,7 @@ public class ApplicationPresenter {
     }
 
     public void getProduk(){
-        AndroidNetworking.get("https://istiqomah.diraya.co.id/api/produk")
+        AndroidNetworking.get(ENVIRONMENT.BASE_URL + "produk")
                 .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
                 .setPriority(Priority.LOW)
                 .build()
@@ -146,7 +146,7 @@ public class ApplicationPresenter {
     }
 
     public void getKeranjang(int id){
-        AndroidNetworking.get("https://istiqomah.diraya.co.id/api/keranjang")
+        AndroidNetworking.get(ENVIRONMENT.BASE_URL + "keranjang")
                 .addQueryParameter("id_user", Integer.toString(id))
                 .addQueryParameter("status", "BELUM DIBAYAR")
                 .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
@@ -174,7 +174,7 @@ public class ApplicationPresenter {
     }
 
     public void getIsi(int id){
-        AndroidNetworking.get("https://istiqomah.diraya.co.id/api/isi")
+        AndroidNetworking.get(ENVIRONMENT.BASE_URL + "isi")
                 .addQueryParameter("id_keranjang", Integer.toString(id))
                 .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
                 .setPriority(Priority.LOW)
@@ -201,7 +201,7 @@ public class ApplicationPresenter {
     }
 
     public void postKeranjang(int id){
-        AndroidNetworking.post("https://istiqomah.diraya.co.id/api/keranjang")
+        AndroidNetworking.post(ENVIRONMENT.BASE_URL + "keranjang")
                 .addBodyParameter("id_user", Integer.toString(id))
                 .addBodyParameter("tgl_keranjang", Long.toString(System.currentTimeMillis() / 1000L))
                 .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
@@ -229,7 +229,7 @@ public class ApplicationPresenter {
     }
 
     public void getCart(int id){
-        AndroidNetworking.get("https://istiqomah.diraya.co.id/api/viewisi")
+        AndroidNetworking.get(ENVIRONMENT.BASE_URL + "viewisi")
                 .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
                 .addQueryParameter("id_keranjang", Integer.toString(id))
                 .setPriority(Priority.LOW)
@@ -257,7 +257,7 @@ public class ApplicationPresenter {
     }
 
     public void postIsi(Map<String, String> param){
-        AndroidNetworking.post("https://istiqomah.diraya.co.id/api/isi")
+        AndroidNetworking.post(ENVIRONMENT.BASE_URL + "isi")
                 .addBodyParameter(param)
                 .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
                 .setPriority(Priority.LOW)
