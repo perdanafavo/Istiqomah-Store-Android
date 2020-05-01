@@ -22,7 +22,7 @@ public interface ApplicationViews {
 
     interface UpdateUsers{
         Map<String, String> getParam();
-        void successUpdate(ArrayList<UsersData> data);
+        void successUpdate(String message);
         void failedUpdate(String message);
     }
 

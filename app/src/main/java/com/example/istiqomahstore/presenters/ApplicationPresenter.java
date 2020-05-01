@@ -101,7 +101,7 @@ public class ApplicationPresenter {
                     @Override
                     public void onResponse(UsersModels response) {
                         if (response.getStatus()) {
-                            updateUsers.successUpdate(response.getData());
+                            updateUsers.successUpdate(response.getMessage());
                         } else {
                             updateUsers.failedUpdate(response.getMessage());
                         }

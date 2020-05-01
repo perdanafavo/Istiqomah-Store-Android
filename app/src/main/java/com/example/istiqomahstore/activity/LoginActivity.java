@@ -187,7 +187,7 @@ public class LoginActivity extends CustomCompatActivity implements ApplicationVi
     }
 
     @Override
-    public void successUpdate(ArrayList<UsersData> data) {
+    public void successUpdate(String data) {
         mDialog.dismiss();
         simpleIntent(MainProductActivity.class);
     }
