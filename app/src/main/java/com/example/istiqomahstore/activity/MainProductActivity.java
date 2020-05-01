@@ -185,8 +185,6 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
     @Override
     public void successGetProduk(ArrayList<ProdukData> data) {
         List<Integer> produkAdded = new ArrayList<>();
-        List<Integer> notAdded = new ArrayList<>();
-        ArrayList<ProdukData> filledCart = new ArrayList<>();
 
         if(isiData==null){
             produkData=data;
@@ -200,18 +198,10 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
                 for (ProdukData item : data){
                     if(item.getId_produk()==a){
                         item.setCek(false);
-                        filledCart.add(item);
                     }
                 }
             }
-            for (int a : produkAdded){
-                for (ProdukData item : data){
-                    if(item.getId_produk()!=a && item.getCek()){
-                        filledCart.add(item);
-                    }
-                }
-            }
-            produkData=filledCart;
+            produkData=data;
         }
         productAdapter =  new ProductAdapter(MainProductActivity.this, produkData);
         rvProduct.setAdapter(productAdapter);

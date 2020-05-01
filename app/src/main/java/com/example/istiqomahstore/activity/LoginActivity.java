@@ -21,8 +21,10 @@ import com.example.istiqomahstore.presenters.ApplicationPresenter;
 import com.example.istiqomahstore.views.ApplicationViews;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class LoginActivity extends CustomCompatActivity implements ApplicationViews.LoginViews,ApplicationViews.TokenViews {
+public class LoginActivity extends CustomCompatActivity implements ApplicationViews.LoginViews,ApplicationViews.UpdateUsers {
 
     private SessionManager sessionManager;
     private ApplicationPresenter applicationPresenter;
@@ -32,6 +34,7 @@ public class LoginActivity extends CustomCompatActivity implements ApplicationVi
     private int id;
     private String username, password, token;
     private TextView tvForgotPassword, tvRegister;
+    private Map<String,String> param = new HashMap<>();
 
     private static final int TIME_INTERVAL = 2000;
     private long mBackPressed;
@@ -151,7 +154,12 @@ public class LoginActivity extends CustomCompatActivity implements ApplicationVi
         sessionManager.saveSPString(SessionManager.SP_PHONE, getResponse.getPhone());
         sessionManager.saveSPString(SessionManager.SP_TOKEN, token);
         sessionManager.saveSPBoolean(SessionManager.SP_ALREADY_LOGIN, true);
-        applicationPresenter.updateToken();
+        if (param != null){
+            param.clear();
+        }
+        param.put("id", Integer.toString(getResponse.getId()));
+        param.put("token", token);
+        applicationPresenter.putUsers();
     }
 
     @Override
@@ -174,23 +182,18 @@ public class LoginActivity extends CustomCompatActivity implements ApplicationVi
     }
 
     @Override
-    public int getId() {
-        return id;
+    public Map<String, String> getParam() {
+        return param;
     }
 
     @Override
-    public String getToken() {
-        return token;
-    }
-
-    @Override
-    public void successToken(ArrayList<UsersData> data) {
+    public void successUpdate(ArrayList<UsersData> data) {
         mDialog.dismiss();
         simpleIntent(MainProductActivity.class);
     }
 
     @Override
-    public void failedToken(String message) {
+    public void failedUpdate(String message) {
 
     }
 }

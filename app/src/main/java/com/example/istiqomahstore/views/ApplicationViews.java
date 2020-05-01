@@ -20,11 +20,10 @@ public interface ApplicationViews {
         void failedLogin(String message);
     }
 
-    interface TokenViews{
-        int getId();
-        String getToken();
-        void successToken(ArrayList<UsersData> data);
-        void failedToken(String message);
+    interface UpdateUsers{
+        Map<String, String> getParam();
+        void successUpdate(ArrayList<UsersData> data);
+        void failedUpdate(String message);
     }
 
     interface RegisterViews{

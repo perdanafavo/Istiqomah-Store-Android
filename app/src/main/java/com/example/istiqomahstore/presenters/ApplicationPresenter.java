@@ -23,7 +23,7 @@ public class ApplicationPresenter {
     Context page;
     private ApplicationViews applicationViews;
     private ApplicationViews.LoginViews loginViews;
-    private ApplicationViews.TokenViews tokenViews;
+    private ApplicationViews.UpdateUsers updateUsers;
     private ApplicationViews.MainViews mainViews;
     private ApplicationViews.MainViews.getProduk getProduk;
     private ApplicationViews.MainViews.getKeranjang getKeranjang;
@@ -38,8 +38,8 @@ public class ApplicationPresenter {
         if (context instanceof ApplicationViews) applicationViews = (ApplicationViews) context;
         if (context instanceof ApplicationViews.LoginViews)
             loginViews = (ApplicationViews.LoginViews) context;
-        if (context instanceof ApplicationViews.TokenViews)
-            tokenViews = (ApplicationViews.TokenViews) context;
+        if (context instanceof ApplicationViews.UpdateUsers)
+            updateUsers = (ApplicationViews.UpdateUsers) context;
         if (context instanceof ApplicationViews.MainViews)
             mainViews = (ApplicationViews.MainViews) context;
         if (context instanceof ApplicationViews.MainViews.getProduk)
@@ -89,20 +89,21 @@ public class ApplicationPresenter {
                 });
     }
 
-    public void updateToken(){
+    public void putUsers(){
         AndroidNetworking.put(ENVIRONMENT.BASE_URL + "authentication")
                 .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
-                .addBodyParameter("id", Integer.toString(tokenViews.getId()))
-                .addBodyParameter("token", tokenViews.getToken())
+                .addBodyParameter(updateUsers.getParam())
+//                .addBodyParameter("id", Integer.toString(tokenViews.getId()))
+//                .addBodyParameter("token", tokenViews.getToken())
                 .setPriority(Priority.LOW)
                 .build()
                 .getAsObject(UsersModels.class, new ParsedRequestListener<UsersModels>() {
                     @Override
                     public void onResponse(UsersModels response) {
                         if (response.getStatus()) {
-                            tokenViews.successToken(response.getData());
+                            updateUsers.successUpdate(response.getData());
                         } else {
-                            tokenViews.failedToken(response.getMessage());
+                            updateUsers.failedUpdate(response.getMessage());
                         }
                     }
 
@@ -168,6 +169,31 @@ public class ApplicationPresenter {
                             getKeranjang.failedGetKeranjang(er.getMessage());
                         } else {
                             getKeranjang.failedGetKeranjang(ENVIRONMENT.FAIL_GET);
+                        }
+                    }
+                });
+    }
+
+    public void putKeranjang(Map<String, String> param){
+        AndroidNetworking.put(ENVIRONMENT.BASE_URL + "keranjang")
+                .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
+                .addBodyParameter(param)
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsObject(UsersModels.class, new ParsedRequestListener<UsersModels>() {
+                    @Override
+                    public void onResponse(UsersModels response) {
+                        if (response.getStatus()) {
+                        } else {
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        if (anError.getErrorCode() != 0) {
+
+                        } else {
+
                         }
                     }
                 });
