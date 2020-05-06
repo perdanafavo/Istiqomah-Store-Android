@@ -239,6 +239,11 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
     }
 
     @Override
+    public int getHargaTotal() {
+        return hargaTotal;
+    }
+
+    @Override
     public void successPostKeranjang(int id) {
         idCart = id;
         hargaTotal = 0;
@@ -262,7 +267,6 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
     @Override
     public void failedGetIsi(String message) {
         applicationPresenter.getProduk();
-        mDialog.dismiss();
     }
 
     @Override

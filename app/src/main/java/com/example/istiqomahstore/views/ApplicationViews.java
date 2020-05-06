@@ -20,6 +20,7 @@ public interface ApplicationViews {
         void failedLogin(String message);
     }
 
+
     interface UpdateUsers{
         Map<String, String> getParam();
         void successUpdate(String message);
@@ -27,9 +28,9 @@ public interface ApplicationViews {
     }
 
     interface RegisterViews{
-        Map<String, String> GetRequestBody();
+        Map<String, String> getParam();
         void successPostUser(String message);
-        void failedPostUser();
+        void failedPostUser(String message);
     }
 
     interface MainViews{
@@ -42,6 +43,7 @@ public interface ApplicationViews {
             void failedGetKeranjang(String message);
             void setNewPrice(int price);
             int getIdKeranjang();
+            int getHargaTotal();
         }
         interface postKeranjang{
             void successPostKeranjang(int id);

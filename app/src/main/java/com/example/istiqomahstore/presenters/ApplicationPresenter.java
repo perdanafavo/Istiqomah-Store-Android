@@ -23,6 +23,7 @@ public class ApplicationPresenter {
     Context page;
     private ApplicationViews applicationViews;
     private ApplicationViews.LoginViews loginViews;
+    private ApplicationViews.RegisterViews registerViews;
     private ApplicationViews.UpdateUsers updateUsers;
     private ApplicationViews.MainViews mainViews;
     private ApplicationViews.MainViews.getProduk getProduk;
@@ -38,6 +39,8 @@ public class ApplicationPresenter {
         if (context instanceof ApplicationViews) applicationViews = (ApplicationViews) context;
         if (context instanceof ApplicationViews.LoginViews)
             loginViews = (ApplicationViews.LoginViews) context;
+        if (context instanceof ApplicationViews.RegisterViews)
+            registerViews = (ApplicationViews.RegisterViews) context;
         if (context instanceof ApplicationViews.UpdateUsers)
             updateUsers = (ApplicationViews.UpdateUsers) context;
         if (context instanceof ApplicationViews.MainViews)
@@ -89,6 +92,36 @@ public class ApplicationPresenter {
                 });
     }
 
+    public void postUser(){
+        AndroidNetworking.post(ENVIRONMENT.BASE_URL + "authentication")
+                .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
+                .addBodyParameter(registerViews.getParam())
+//                .addBodyParameter("id", Integer.toString(tokenViews.getId()))
+//                .addBodyParameter("token", tokenViews.getToken())
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsObject(UsersModels.class, new ParsedRequestListener<UsersModels>() {
+                    @Override
+                    public void onResponse(UsersModels response) {
+                        if (response.getStatus()) {
+                            registerViews.successPostUser(response.getMessage());
+                        } else {
+                            registerViews.failedPostUser(response.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onError(ANError anError) {
+                        if (anError.getErrorCode() != 0) {
+                            UsersModels er = anError.getErrorAsObject(UsersModels.class);
+                            registerViews.failedPostUser(er.getMessage());
+                        } else {
+                            registerViews.failedPostUser(ENVIRONMENT.FAIL_GET);
+                        }
+                    }
+                });
+    }
+
     public void putUsers(){
         AndroidNetworking.put(ENVIRONMENT.BASE_URL + "authentication")
                 .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
@@ -111,9 +144,9 @@ public class ApplicationPresenter {
                     public void onError(ANError anError) {
                         if (anError.getErrorCode() != 0) {
                             UsersModels er = anError.getErrorAsObject(UsersModels.class);
-                            loginViews.failedLogin(er.getMessage());
+                            updateUsers.failedUpdate(er.getMessage());
                         } else {
-                            loginViews.failedLogin(ENVIRONMENT.FAIL_GET);
+                            updateUsers.failedUpdate(ENVIRONMENT.FAIL_GET);
                         }
                     }
                 });
@@ -180,9 +213,9 @@ public class ApplicationPresenter {
                 .addBodyParameter(param)
                 .setPriority(Priority.LOW)
                 .build()
-                .getAsObject(UsersModels.class, new ParsedRequestListener<UsersModels>() {
+                .getAsObject(KeranjangModels.class, new ParsedRequestListener<KeranjangModels>() {
                     @Override
-                    public void onResponse(UsersModels response) {
+                    public void onResponse(KeranjangModels response) {
                         if (response.getStatus()) {
                         } else {
                         }

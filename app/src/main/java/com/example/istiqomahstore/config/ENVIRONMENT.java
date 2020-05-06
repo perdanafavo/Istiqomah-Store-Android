@@ -15,5 +15,6 @@ public class ENVIRONMENT {
     public static final String BACKPRESSED_MESSAGE = "Tekan Back sekali lagi untuk Keluar";
     public static final String CART_EMPTY = "Keranjang Anda masih kosong";
     public static final String EMPTY_FIELD = "Masukan selain password tidak boleh kosong";
+    public static final String EMPTY_FIELD_REGISTER = "Empty field";
 
 }

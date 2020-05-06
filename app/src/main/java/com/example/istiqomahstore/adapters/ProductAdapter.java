@@ -44,10 +44,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     private Dialog myDialog;
     private int initialCounter;
     private Context context;
-    private BigDecimal initialPrice,newPrice;
+    private BigDecimal initialPrice,newPrice,newTotalPrice;
     private ApplicationPresenter applicationPresenter;
     private ProgressDialog mDialog;
     private Map<String,String> param = new HashMap<>();
+    private Map<String,String> paramCart = new HashMap<>();
 
 
     public ProductAdapter(Context context, ArrayList<ProdukData> produkData){
@@ -168,6 +169,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                         param.put("id_produk", Integer.toString(produkData.get(position).getId_produk()));
                         param.put("jumlah", Integer.toString(initialCounter));
                         param.put("harga", newPrice.toString());
+                        paramCart.clear();
+                        newTotalPrice = newPrice.add(BigDecimal.valueOf(putPrice.getHargaTotal()));
+                        putPrice.setNewPrice(newTotalPrice.intValue());
+                        paramCart.put("id_keranjang", Integer.toString(putPrice.getIdKeranjang()));
+                        paramCart.put("total_harga", newTotalPrice.toString());
+                        applicationPresenter.putKeranjang(paramCart);
                         applicationPresenter.postIsi(param);
                         mDialog = new ProgressDialog(context);
                         mDialog.setMessage(ENVIRONMENT.NO_WAITING_MESSAGE);
