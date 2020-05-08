@@ -64,6 +64,12 @@ public interface ApplicationViews {
             void successGetCart(ArrayList<DetailCartData> data);
             void failedGetCart(String message);
         }
+        interface putIsi{
+            void successPutIsi(String message);
+            void failedPutIsi(String message);
+            int getIdCart();
+            void setNewPrice(int price);
+        }
     }
 
 }

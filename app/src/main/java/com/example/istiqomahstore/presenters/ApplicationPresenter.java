@@ -33,6 +33,7 @@ public class ApplicationPresenter {
     private ApplicationViews.MainViews.postIsi postIsi;
     private ApplicationViews.DetailCartViews detailCartViews;
     private ApplicationViews.DetailCartViews.getCart getCart;
+    private ApplicationViews.DetailCartViews.putIsi putIsi;
 
 
     public ApplicationPresenter(Context context) {
@@ -59,6 +60,8 @@ public class ApplicationPresenter {
             detailCartViews = (ApplicationViews.DetailCartViews) context;
         if (context instanceof ApplicationViews.DetailCartViews.getCart)
             getCart = (ApplicationViews.DetailCartViews.getCart) context;
+        if (context instanceof ApplicationViews.DetailCartViews.putIsi)
+            putIsi = (ApplicationViews.DetailCartViews.putIsi) context;
         page = context;
     }
 
@@ -333,10 +336,37 @@ public class ApplicationPresenter {
                     @Override
                     public void onError(ANError anError) {
                         if (anError.getErrorCode() != 0) {
-                            KeranjangModels er = anError.getErrorAsObject(KeranjangModels.class);
+                            IsiModels er = anError.getErrorAsObject(IsiModels.class);
                             postIsi.failedPostIsi(er.getMessage());
                         } else {
                             postIsi.failedPostIsi(ENVIRONMENT.FAIL_GET);
+                        }
+                    }
+                });
+    }
+
+    public void putIsi(Map<String, String> param){
+        AndroidNetworking.put(ENVIRONMENT.BASE_URL + "isi")
+                .addBodyParameter(param)
+                .addHeaders("X-API-KEY","bd347e289a6127112156ccbfe54b689f")
+                .setPriority(Priority.LOW)
+                .build()
+                .getAsObject(IsiModels.class, new ParsedRequestListener<IsiModels>() {
+                    @Override
+                    public void onResponse(IsiModels response) {
+                        if (response.isStatus()) {
+                            putIsi.successPutIsi(response.getMessage());
+                        } else {
+                            putIsi.failedPutIsi(response.getMessage());
+                        }
+                    }
+                    @Override
+                    public void onError(ANError anError) {
+                        if (anError.getErrorCode() != 0) {
+                            IsiModels er = anError.getErrorAsObject(IsiModels.class);
+                            putIsi.failedPutIsi(er.getMessage());
+                        } else {
+                            putIsi.failedPutIsi(ENVIRONMENT.FAIL_GET);
                         }
                     }
                 });

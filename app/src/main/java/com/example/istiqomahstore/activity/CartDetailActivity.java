@@ -20,9 +20,10 @@ import com.example.istiqomahstore.models.submodels.DetailCartData;
 import com.example.istiqomahstore.presenters.ApplicationPresenter;
 import com.example.istiqomahstore.views.ApplicationViews;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
-public class CartDetailActivity extends CustomCompatActivity implements ApplicationViews.DetailCartViews, ApplicationViews.DetailCartViews.getCart {
+public class CartDetailActivity extends CustomCompatActivity implements ApplicationViews.DetailCartViews, ApplicationViews.DetailCartViews.getCart, ApplicationViews.DetailCartViews.putIsi{
 
     //Views
     private TextView tvProductCartPrice, tvPaymentTotal;
@@ -34,6 +35,7 @@ public class CartDetailActivity extends CustomCompatActivity implements Applicat
 
     //Variable
     private int idCart;
+    private BigDecimal totalHarga = BigDecimal.valueOf(0);
 
     //Contanta & Object
     private SessionManager sessionManager;
@@ -71,7 +73,9 @@ public class CartDetailActivity extends CustomCompatActivity implements Applicat
         mDialog.setCancelable(false);
         mDialog.setIndeterminate(true);
         mDialog.show();
-
+        totalHarga = BigDecimal.valueOf(sessionManager.getSpPrice());
+        tvProductCartPrice.setText(totalHarga.toString());
+        tvPaymentTotal.setText(totalHarga.toString());
         applicationPresenter.getCart(idCart);
 
         backMenu();
@@ -101,7 +105,7 @@ public class CartDetailActivity extends CustomCompatActivity implements Applicat
     @Override
     public void successGetCart(ArrayList<DetailCartData> data) {
         cartData = data;
-        cartAdapter = new CartAdapter(cartData);
+        cartAdapter = new CartAdapter(CartDetailActivity.this, cartData,totalHarga);
         rvCart.setAdapter(cartAdapter);
         mDialog.dismiss();
     }
@@ -110,5 +114,30 @@ public class CartDetailActivity extends CustomCompatActivity implements Applicat
     public void failedGetCart(String message) {
         simpleToast(ENVIRONMENT.CART_EMPTY);
         mDialog.dismiss();
+    }
+
+    @Override
+    public void successPutIsi(String message) {
+        simpleToast(message);
+        finish();
+        overridePendingTransition(0, 0);
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+    }
+
+    @Override
+    public void failedPutIsi(String message) {
+        mDialog.dismiss();
+        simpleToast(message);
+    }
+
+    @Override
+    public int getIdCart() {
+        return sessionManager.getSpCart();
+    }
+
+    @Override
+    public void setNewPrice(int price) {
+        sessionManager.saveSPInt(SessionManager.SP_PRICE, price);
     }
 }

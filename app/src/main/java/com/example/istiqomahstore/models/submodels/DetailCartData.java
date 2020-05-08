@@ -14,6 +14,9 @@ public class DetailCartData {
     @SerializedName("id_keranjang")
     private int id_keranjang;
 
+    @SerializedName("id_produk")
+    private int id_produk;
+
     @SerializedName("nama_produk")
     private String nama_produk;
 
@@ -43,6 +46,14 @@ public class DetailCartData {
 
     public void setId_keranjang(int id_keranjang) {
         this.id_keranjang = id_keranjang;
+    }
+
+    public int getId_produk() {
+        return id_produk;
+    }
+
+    public void setId_produk(int id_produk) {
+        this.id_produk = id_produk;
     }
 
     public String getNama_produk() {
