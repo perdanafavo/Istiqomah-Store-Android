@@ -115,6 +115,25 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
 //        rvProduct.setAdapter(new ProductAdapter(filteredList));
     }
 
+    public void itemCounter(int count){
+        pendingNotifications = count;
+        if (pendingNotifications == 0){
+            menuItem.setActionView(null);
+        } else {
+            menuItem.setActionView(R.layout.notification_badge);
+            View view =  menuItem.getActionView();
+            badgeCounter = view.findViewById(R.id.badge_counter);
+            badgeCounter.setText(String.valueOf(pendingNotifications));
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    simpleIntent(CartDetailActivity.class);
+                }
+            });
+        }
+    }
+
     @Override
     public void onBackPressed() {
         //Klik 2x untuk keluar
@@ -135,21 +154,7 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
        menuItem = menu.findItem(R.id.action_cart);
        badgeCounter = findViewById(R.id.badge_counter);
 
-       if (pendingNotifications == 0){
-           menuItem.setActionView(null);
-       } else {
-           menuItem.setActionView(R.layout.notification_badge);
-           View view =  menuItem.getActionView();
-           badgeCounter = view.findViewById(R.id.badge_counter);
-           badgeCounter.setText(String.valueOf(pendingNotifications));
-
-           view.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View view) {
-                   simpleIntent(CartDetailActivity.class);
-               }
-           });
-       }
+       itemCounter(0);
 
        menuItem.setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
            @Override
@@ -262,6 +267,7 @@ public class MainProductActivity extends CustomCompatActivity implements Applica
     public void successGetIsi(ArrayList<IsiData> data) {
         isiData = data;
         applicationPresenter.getProduk();
+        itemCounter(isiData.size());
     }
 
     @Override

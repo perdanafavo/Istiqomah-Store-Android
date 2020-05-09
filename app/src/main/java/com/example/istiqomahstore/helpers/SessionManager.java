@@ -19,8 +19,10 @@ public class SessionManager {
     public static final String SP_PHONE= "spPhone";
     public static final String SP_TOKEN= "spToken";
     public static final String SP_CART= "spCart";
+    public static final String SP_ITEM= "spItem";
     public static final String SP_PRICE= "spPrice";
     public static final String SP_ALREADY_LOGIN = "spAlreadyLogin";
+
 
     private SharedPreferences sp;
     private SharedPreferences.Editor spEditor;
@@ -102,6 +104,11 @@ public class SessionManager {
     public int getSpPrice() {
         return sp.getInt(SP_PRICE, 0);
     }
+
+    public int getSpItem() {
+        return sp.getInt(SP_ITEM, 0);
+    }
+
 
     public Boolean getSpAlreadyLogin() { return sp.getBoolean(SP_ALREADY_LOGIN, false);}
 
