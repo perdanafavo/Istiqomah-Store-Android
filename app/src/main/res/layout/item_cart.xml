@@ -24,13 +24,23 @@
 
         <TextView
             android:id="@+id/tvProductName"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_170sdp"
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/ivProduct"
             android:fontFamily="@font/segoe_ui"
             android:text="@string/gula_pasir"
             android:textSize="@dimen/_13ssp"
             android:layout_marginStart="10dp"/>
+
+        <TextView
+            android:id="@+id/tvClose"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:text="@string/xmarks"
+            android:textColor="@color/colorRed"
+            android:textSize="@dimen/_16ssp"
+            android:layout_alignParentEnd="true"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/tvrp"
